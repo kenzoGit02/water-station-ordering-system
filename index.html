@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+        background: rgba(51, 170, 51, .1);
+    }
+    body{
+        display: flex;
+        height:100vh;
+        align-items: center;
+        justify-content: center;
+        position:relative;
+    }
+</style>
+</head>
+<body>
+    <button onclick="show();">BUTTON</button>
+    <p id="p">HELLO</p>
+    <script>
+        function show(){
+            
+        }
+    </script>
+
+    <p>Click the "Try it" button to set the display property of the DIV element to "none":</p>
+
+    <button onclick="myFunction()">Try it</button>
+    
+    <div id="myDIV">
+    This is my DIV element.
+    </div>
+    
+    <p><b>Note:</b> The element will not take up any space when the display property set to "none".</p>
+    
+    <script>
+    function myFunction() {
+      document.getElementById("myDIV").style.display = "none";
+    }
+    </script>
+</body>
+</html>
