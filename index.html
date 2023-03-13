@@ -19,10 +19,24 @@
         align-items: center;
         justify-content: center;
         position:relative;
+        flex-direction: column;
+    }
+    #divv{
+        width:10px;
+        height:10px;
+        background: red;
     }
 </style>
 </head>
 <body>
+    <div id="divv" onclick="tesst()">
+
+    </div>
+    <script>
+        function tesst(){
+            alert("tesst");
+        }
+    </script>
     <button onclick="show();">BUTTON</button>
     <p id="p">HELLO</p>
     <script>
@@ -45,6 +59,12 @@
     function myFunction() {
       document.getElementById("myDIV").style.display = "none";
     }
+    </script>
+    <button onclick="test('hello')">ALERT!</button>
+    <script>
+        function test(string){
+            alert(string);
+        }
     </script>
 </body>
 </html>

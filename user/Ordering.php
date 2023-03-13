@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">		
+	<script src="https://code.jquery.com/jquery-3.6.3.min.js" 
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
+    crossorigin="anonymous"></script>
     <title>Document</title>
     
 </head>
@@ -33,7 +36,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        
     }
     
     h1{
@@ -60,8 +62,8 @@
         top:50%;
         left:50%;
         transform:translate(-50%, -50%);
-        visibility: hidden;
-        z-index: -1;
+        visibility: visible;
+        z-index: 1;
     }
     .show-form{
         visibility: visible;
@@ -69,6 +71,25 @@
     }
 </style>
 <body>
+<script>
+    function doThis(){
+        $.ajax({
+            url:'dummy.php',
+            type:'POST',
+            data:{action: 'call'},
+            success: function(data){
+                $("#div").html(data);
+            }
+        })
+        
+    }
+</script>
+<button onclick="doThis()">HELLO</button>
+<div id="div"></div>
+
+
+
+
     <button id="absolute" onclick="myFunction()">ALERT</button>
     <button onclick="show()">Refill</button>
     <div id="cover" class="cover" onclick="cancelForm()">
@@ -89,7 +110,9 @@
                 </tr>
                 <tr>
                     <th>Quantity</th>
-                    <td>Placeholder</td>
+                    <td>
+                        <input type="number" value="1" min="1" name="quantity" id="">
+                    </td>
                 </tr>
                 <tr>
                     <td colspan='2' style="text-align:center">

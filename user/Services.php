@@ -17,6 +17,7 @@
 }
 body{
   min-height: 100vh;
+  position:relative;
 }
 #footer-service{
 	position:sticky;
@@ -87,10 +88,40 @@ img{
 	padding:20px 50px;
 	font-family: 'Proxima Nova', Arial, Helvetica, sans-serif;
 }
+.cover{
+        height:100vh;
+        width:100%;
+        background: rgba(0, 0, 0, .5);
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        z-index: 1;
+}
+.form{
+        border-radius:10px;
+        position:absolute;
+		background: white;
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        width:500px;
+        height:200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+.hide-form{
+    visibility: hidden;
+	display:none;
+    z-index: -1;
+}
 </style>
 </head>
 <body>
+
 	<!-- Navigation Bar -->
+
 	<div class="topnav" id="myTopnav">
 		<?php 
 		session_start();
@@ -104,30 +135,51 @@ img{
 		?>
 		<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 	</div>
+
 	<!-- Content -->
+
+	<span id="span"></span>
+
 	<div id="content">
 		<div id="gallon" class="card">
-			<h1 class="item-name">Round Water Container</h1>
 			<img src="../assets/gallon.png">
-			<button class="buy">BUY</button>
+			<h3 class="item-name">Round Water Container</h3>
+			<button class="buy" onclick="confirmOrder('Round')">BUY</button>
 		</div>
 		<div id="slim" class="card">
-			<h1 class="item-name">Slim Water Container</h1>
 			<img src="../assets/slim.png">
-			<button class="buy">BUY</button>
+			<h3 class="item-name">Slim Water Container</h3>
+			<button class="buy" onclick="confirmOrder('Slim')">BUY</button>
 		</div>
 	</div>
+
 	<div id="content2">
 		<h1 id="refill-header">Ready to ask for a refill?</h1>
 		<button id="refill-button"><span id="text">REFILL</span></button>
 	</div>
 
-<!-- Footer -->
-<div id="footer-service">
-	<p>&copy; 2023 All Rights Reservedd.</p>
-</div>
+	<!-- Footer -->
+
+	<div id="footer-service">
+		<p>&copy; 2023 All Rights Reservedd.</p>
+	</div>
+
 </body>
+
 	<script>
+		function confirmOrder(type){
+			$.ajax({
+				url:'../functions/showOrderForm.php',
+				type:'post',
+				data:{action: type},
+				success: function(html){
+					$("#span").html(html);
+				}
+			})
+		}
+		function hide(){
+            document.getElementById("#cover").classList.add("hide-form");
+        }
 		$(document).ready(function(){
             var RequestingRefill = false;
 			var session = <?php echo $_SESSION['user_id'] ?>;
@@ -141,14 +193,14 @@ img{
                     if(data == 1){
                         // $("#refill-button").css('color','red');
                         $("#text").text('CANCEL');
+						$("#refill-header").text('Cancel refill order?');
                         RequestingRefill = true;
-                        console.log('request refill');
                     }
                     else{
                         // $("#refill-button").css('color','green');
                         $("#text").text('REFILL');
+						$("#refill-header").text('Ask for a refill?');
                         RequestingRefill = false;
-                        console.log('not requesting refill');
                     }
                 }
             });
@@ -156,6 +208,7 @@ img{
             $("#refill-button").click(function(){
                 if(RequestingRefill == false){
                     $("#text").text('CANCEL');
+					$("#refill-header").text('Cancel refill order?');
                     RequestingRefill = true;
 					$.ajax({
 					type:'POST',
@@ -168,8 +221,8 @@ img{
                 else
                 {
                     $("#text").text('REFILL');
+					$("#refill-header").text('Ask for a refill?');
                     RequestingRefill = false;
-                    console.log('not requesting refill');
 					$.ajax({
 					type:'POST',
 					data: {
