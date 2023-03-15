@@ -1,130 +1,26 @@
+<?php 
+	session_start();
+?>
 <!DOCTYPE html>
 <head>
 	<link rel="stylesheet" href="../css/Home.css">
+	<link rel="stylesheet" href="../css/Services.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
 	<script src="../script/script.js"></script>
 	<title>Water Refilling Station</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">		
+	<!-- jquery cdn -->
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js" 
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
     crossorigin="anonymous"></script>
-	
-<style>
-*{
-	box-sizing: border-box;
-}
-body{
-  min-height: 100vh;
-  position:relative;
-}
-#footer-service{
-	position:sticky;
-	top:100%;
-	background-image: linear-gradient(45deg,#88E3FF, #F0FFFF);
-	padding: 20px;
-	text-align: center;
-	font-family: 'Proxima Nova', Arial, Helvetica, sans-serif;
-}
-#content{
-	display: flex;
-	width: 100%;
-	justify-content:space-around;
-}
-.card{
-	max-width: 40%;
-	min-width: 20%;
-	padding: 10px;
-	background-color: rgb(250, 250, 250, 0.4);
-	display:flex;
-	flex-direction: column;
-	align-items:center;
-	border-radius:10px;
-	margin-bottom:20px;
-}
-.item-name{
-	margin:0;
-	margin-bottom:20px;
-}
-img{
-  width: 200px;
-  height: 200px;
-  margin-bottom:20px;
-}
-.buy{
-	padding:10px;
-}
-
-/* Show menu when hamburger is clicked */
-@media screen and (max-width: 600px) {
-  h3 #gallon #slim {
-      background-color: #79bfe2;
-  }
-  .h3.responsive a {
-      float: none;
-      display: block;
-      text-align: left;
-	  color:red;
-  }
-}
-/* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
-@media screen and (max-width: 500px) {
-  h3 #gallon #slim  {
-    float: none;
-    display: block;
-  }
-}
-#content2{
-	text-align:center;
-}
-#refill-header{
-	margin:0;
-	margin-bottom: 20px;
-}
-#refill-button{
-	font-size:20px;
-	font-weight: 700;
-	padding:20px 50px;
-	font-family: 'Proxima Nova', Arial, Helvetica, sans-serif;
-}
-.cover{
-        height:100vh;
-        width:100%;
-        background: rgba(0, 0, 0, .5);
-        position:absolute;
-        top:50%;
-        left:50%;
-        transform:translate(-50%, -50%);
-        z-index: 1;
-}
-.form{
-        border-radius:10px;
-        position:absolute;
-		background: white;
-        top:50%;
-        left:50%;
-        transform:translate(-50%, -50%);
-        width:500px;
-        height:200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-.hide-form{
-    visibility: hidden;
-	display:none;
-    z-index: -1;
-}
-</style>
+	<!-- jquery cdn -->
 </head>
 <body>
-
 	<!-- Navigation Bar -->
-
 	<div class="topnav" id="myTopnav">
 		<?php 
-		session_start();
 		if(isset($_SESSION['user_id'])){
 			echo '<a class="active" href="Home.php"><i class="fa fa-fw fa-home"></i>Home</a>';
 			echo '<a href="Services.php"><i class="fa fa-fw fa-tint"></i>Services</a>';
@@ -136,102 +32,162 @@ img{
 		<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 	</div>
 
-	<!-- Content -->
-
-	<span id="span"></span>
-
-	<div id="content">
+	<!-- JUGS -->
+	<div id="product-container">
 		<div id="gallon" class="card">
 			<img src="../assets/gallon.png">
 			<h3 class="item-name">Round Water Container</h3>
-			<button class="buy" onclick="confirmOrder('Round')">BUY</button>
+			<button class="buy" onclick="show('Round Water Container')">Buy</button>
 		</div>
 		<div id="slim" class="card">
 			<img src="../assets/slim.png">
 			<h3 class="item-name">Slim Water Container</h3>
-			<button class="buy" onclick="confirmOrder('Slim')">BUY</button>
+			<button class="buy" onclick="show('Slim Water Container')">Buy</button>
 		</div>
 	</div>
+	<!-- REFILL -->
+	<div id="service-refill">
+		<h1 id="refill-header"><pre>   </pre></h1>
+		<button id="refill-button" onclick="show('Refill')"><span id="text"></span></button>
+	</div>
 
-	<div id="content2">
-		<h1 id="refill-header">Ready to ask for a refill?</h1>
-		<button id="refill-button"><span id="text">REFILL</span></button>
+	<!-- Order Form -->
+	<div id='cover' class='cover'>
+		<form action='' method='POST' id='form'class='form'>
+			<!-- close icon -->
+			<i id='close'class="fa fa-2x fa-window-close"onclick='hide()'aria-hidden="true"></i>
+			<h1 id='table-order-header'>Place Order</h1>
+			<!-- input used to store session's user id value -->
+			<input type="hidden" id="user_id"value="<?php echo $_SESSION['user_id']?>">
+			<table id='table-order-details'>
+				<tr>
+					<th>Order</th>
+					<td id='order'>Placeholder</td>
+				</tr>
+				<tr>
+					<th>Buyer</th>
+					<td id='username'><?php echo $_SESSION['user_name']?></td>
+				</tr>
+				<tr>
+					<th>Payment Method</th>
+					<td>Cash On Delivery</td>
+				</tr>
+				<tr>
+					<th>Address</th>
+					<td id='address'><?php echo $_SESSION['user_address']?></td>
+				</tr>
+				<tr>
+					<th>Quantity</th>
+					<td><input type='number' id='quantity' value='1' min='1' name='quantity'></td>
+				</tr>
+				<tr>
+					<td colspan='2' style='text-align:center'>
+						<button id='confirm-button' >Confirm</button>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 
 	<!-- Footer -->
-
 	<div id="footer-service">
 		<p>&copy; 2023 All Rights Reservedd.</p>
 	</div>
 
 </body>
-
 	<script>
-		function confirmOrder(type){
+		var session = <?php echo $_SESSION['user_id'] ?>; // js variable for session id
+		var RequestingRefill = false; //initial value
+		//function to check refill request state
+		//if the user is requesting for refill already or not
+		function requestState(){
 			$.ajax({
-				url:'../functions/showOrderForm.php',
-				type:'post',
-				data:{action: type},
-				success: function(html){
-					$("#span").html(html);
-				}
-			})
-		}
-		function hide(){
-            document.getElementById("#cover").classList.add("hide-form");
-        }
-		$(document).ready(function(){
-            var RequestingRefill = false;
-			var session = <?php echo $_SESSION['user_id'] ?>;
-            $.ajax({
-                type:'POST',
-                url:'../functions/requestState.php',
+				type:'POST',
+				url:'../functions/requestState.php',
 				data: {
 					id: session
 				},
-                success: function(data){
-                    if(data == 1){
-                        // $("#refill-button").css('color','red');
-                        $("#text").text('CANCEL');
+				success: function(data){
+					if(data == "pending")
+					{
+						$("#text").text('CANCEL');
 						$("#refill-header").text('Cancel refill order?');
-                        RequestingRefill = true;
-                    }
-                    else{
-                        // $("#refill-button").css('color','green');
-                        $("#text").text('REFILL');
+						RequestingRefill = true;
+					}
+					else
+					{
+						$("#text").text('REFILL');
 						$("#refill-header").text('Ask for a refill?');
-                        RequestingRefill = false;
-                    }
-                }
-            });
-            
-            $("#refill-button").click(function(){
-                if(RequestingRefill == false){
-                    $("#text").text('CANCEL');
-					$("#refill-header").text('Cancel refill order?');
-                    RequestingRefill = true;
-					$.ajax({
-					type:'POST',
-					data: {
-						id: session
-					},
-					url:'../functions/requestRefill.php'
-					});
-                }
-                else
-                {
-                    $("#text").text('REFILL');
-					$("#refill-header").text('Ask for a refill?');
-                    RequestingRefill = false;
-					$.ajax({
-					type:'POST',
-					data: {
-						id: session
-					},
-					url:'../functions/cancelRefill.php'
-					});
-                }
-            });
-        });
+						RequestingRefill = false;
+					}
+				}
+        	})
+		}
+		requestState();
+		//function to show order form
+		function show(order){
+			if(order == "Refill"){
+				$("#quantity").val(0)
+				$("#quantity").prop( "disabled", true )
+				if(RequestingRefill == true)
+				{
+					// cancel order
+					if (confirm("Are you sure you wanted to cancel your request?") == true) {
+						text = "You pressed OK!";
+						let userID = $("#user_id").val()
+						$.ajax({
+							url:'../functions/cancelorder.php',
+							type:'POST',
+							data: {
+								userID: userID,
+							},
+							success: function(){
+								requestState()
+							}
+						})
+					}
+				}
+				else
+				{
+					$("#cover").css('display','block')
+					$("#order").html(order)
+				}
+			}
+			else
+			{
+				$("#quantity").val(1)
+				$("#cover").css('display','block')
+				$("#order").html(order)
+			}
+		}
+		//function to hide order form
+		function hide(){
+            $("#cover").css('display','none')
+        }
+		//function to issue order
+		$('#form').submit(function(event){
+            event.preventDefault()
+			let order = $("#order").html()
+			let name = $("#username").html()
+			let address = $("#address").html()
+			let userID = $("#user_id").val()
+			let quantity = $("#quantity").val()
+			$.ajax({
+				url:'../functions/postOrder.php',
+				type:'POST',
+				data:{
+					order: order,
+					name: name,
+					address: address,
+					userID: userID,
+					quantity: quantity
+				},
+				success:function(res){
+					hide()
+					requestState()
+					//go to order details
+				}
+			})
+        })
 	</script>
 </html>

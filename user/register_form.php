@@ -27,8 +27,6 @@ if(isset($_POST['submit'])){
          $insert = "INSERT INTO user_form(name, email, password, user_type, address) VALUES('$name','$email',
          '$pass','$user_type','$address')";
          mysqli_query($conn, $insert);
-         $request = "INSERT INTO refill_requests(name, address, requesting) VALUES('$name','$address','0')";
-         mysqli_query($conn, $request);
          header('location:login_form.php');
       }
    }

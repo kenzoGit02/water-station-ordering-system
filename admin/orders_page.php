@@ -17,10 +17,11 @@ if(!isset($_SESSION['admin_name'])){
    <link rel="stylesheet" href="../css/Home.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-	<script src="https://code.jquery.com/jquery-3.6.3.min.js" 
+	<!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" 
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
     crossorigin="anonymous"></script>
+    <!-- jquery cdn -->
 	<script src="../script/script.js"></script>
 	<title>Admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,24 +39,17 @@ th, td{
     width:30vw;
     padding:15px 10px;
 }
-#requesting{
+#action{
     text-align:center;
-    color:red;
 }
-#accept{
-    border: 1px solid green;
-    color: green;
-    margin-right:5px;
-}
-#cancel{
-    border: 1px solid red;
-    color: red;
+#button-confirm{
+    padding: 10px 20px;
 }
 </style>
 </head>
 <body>
+<!-- nav bar -->
 <div class="topnav" id="myTopnav">
-
 <?php 
 if(isset($_SESSION['admin_name'])){
    echo '<a class="active" href="admin_page.php"><i class="fa fa-fw fa-user"></i>Accounts</a>';
@@ -67,18 +61,48 @@ if(isset($_SESSION['admin_name'])){
 ?>
 <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
+<!-- orders table -->
 <table id="table">
     <tr>
-        <th colspan="4"><h1>Orders</h1></th>
+        <th colspan="5"><h1>Orders</h1></th>
     </tr>
     <tr>
         <th>Name</th>
         <th>Address</th>
         <th>Order</th>
         <th>Quantity</th>
+        <th>Delivered & Paid</th>
     </tr>
-    
+    <tbody id='table-body'></tbody>
 </table>
-
+<script>
+    function finishOrder(id){
+        $.ajax({
+        type:'POST',
+        url:'../functions/completeOrder.php',
+        data:{
+            order_id: id
+        }
+        })
+    }
+    $(document).ready(function(){
+    $.ajax({
+        type:'GET',
+        url:'../functions/getOrders.php',
+        success: function(response){
+           $("#table-body").html(response);
+        }
+    });
+      setInterval(() => {
+         $.ajax({
+         type:'GET',
+         url:'../functions/getOrders.php',
+         success: function(response){
+            $("#table-body").html(response);
+         }
+         });
+      }, 1000);
+   });
+</script>
 </body>
 </html>

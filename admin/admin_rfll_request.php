@@ -1,6 +1,6 @@
 <?php
 
-@include '../functions/config.php';
+include '../functions/config.php';
 session_start();
 
 if(!isset($_SESSION['admin_name'])){
@@ -17,10 +17,11 @@ if(!isset($_SESSION['admin_name'])){
    <link rel="stylesheet" href="../css/Home.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-	<script src="https://code.jquery.com/jquery-3.6.3.min.js" 
+	<!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" 
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
     crossorigin="anonymous"></script>
+    <!-- jquery cdn -->
 	<script src="../script/script.js"></script>
 	<title>Admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,13 +39,11 @@ th, td{
     width:30vw;
     padding:15px 10px;
 }
-#requesting{
+#action{
     text-align:center;
-    color:red;
 }
-#accept{
-    margin-right:5px;
-    font-size:16px;
+#button-confirm{
+    padding: 10px 20px;
 }
 </style>
 </head>
@@ -69,12 +68,20 @@ if(isset($_SESSION['admin_name'])){
     <tr>
         <th>Name</th>
         <th>Address</th>
-        <th >Requesting</th>
-        
+        <th>Delivered & Paid</th>
     </tr>
     <tbody id="tableBody"></tbody>
 </table>
 <script>
+    function finishRequest(id){
+        $.ajax({
+        type:'POST',
+        url:'../functions/completeOrder.php',
+        data:{
+            order_id: id
+        }
+        })
+    }
    $(document).ready(function(){
     $.ajax({
         type:'GET',
