@@ -1,0 +1,42 @@
+*{
+	box-sizing: border-box;
+}
+body{
+  position:relative;
+}
+.cover{
+    height:100vh;
+    width:100%;
+    background: rgba(0, 0, 0, .5);
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    z-index: 1;
+	display:none;
+}
+.editForm{
+    border-radius:10px;
+    position:absolute;
+	background: white;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    width:600px;
+    height:300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	flex-direction: column;
+}
+#close{
+	position:absolute;
+	top:0%;
+	right:1%;
+}
+#button-edit, #button-delete{
+    padding: 10px 20px;
+}
+#action{
+    text-align: center;
+}

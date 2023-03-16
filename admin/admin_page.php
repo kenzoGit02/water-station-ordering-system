@@ -17,14 +17,14 @@ if(!isset($_SESSION['admin_name'])){
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="../css/Home.css">
+   <link rel="stylesheet" href="../css/admin_page.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js" 
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
     crossorigin="anonymous"></script>
 	<script src="../script/script.js"></script>
-	<title>Admin</title>
+	<title>Admin Dashboard</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">		
    <!-- <link rel="stylesheet" href="../css/style.css"> -->
 <style>
@@ -35,7 +35,7 @@ body{
 #table{
     margin:auto;
 }
-th, td{
+#table th, #table td{
     border:1px solid black;
     width:30vw;
     padding:15px 10px;
@@ -44,7 +44,7 @@ th, td{
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-
+<!-- nav bar -->
 <?php 
 if(isset($_SESSION['admin_name'])){
    echo '<a class="active" href="admin_page.php"><i class="fa fa-fw fa-user"></i>Accounts</a>';
@@ -56,37 +56,111 @@ if(isset($_SESSION['admin_name'])){
 ?>
 <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
+<!-- User Accounts Table -->
 <table id="table">
     <tr>
-        <th colspan="4"><h1>User Accounts</h1></th>
+        <th colspan="5"><h1>User Accounts</h1></th>
     </tr>
     <tr>
         <th>User ID</th>
         <th>Name</th>
         <th>Email</th>
         <th>Address</th>
+        <th>Action</th>
     </tr>
-    <tbody id="tableBody"></tbody>
-    
+    <tbody id="tableBody">
+      <!-- table data from php goes here -->
+    </tbody>
 </table>
+<!-- Edit Form -->
+<div id='cover' class='cover'>
+      <form action='' method='POST' id='editForm' class='editForm'>
+			<!-- close icon -->
+			<i id='close'class="fa fa-2x fa-window-close"onclick='hide()'aria-hidden="true"></i>
+			<h1 id='edit-header'>Edit User Details</h1>
+			<!-- input used to store session's user id value -->
+         <input type="hidden" id='userIDInput' value="">
+			<label for='name'>Name:</label>
+         <input type='text' name='name' id='nameInput'>
+			<label for='email'>Email:</label>
+         <input type='text' name='email' id='emailInput'>
+			<label for='address'>Address:</label>
+         <input type='text' name='address' id='addressInput'>
+         <button id='confirmEdit'>Confirm</button>
+		</form>
+</div>
 <script>
-   $(document).ready(function(){
+   //function to edit user info on database
+   $('#editForm').submit(function(event){
+      event.preventDefault()
+      let inputUserId = $("#userIDInput").val()
+      let inputName = $("#nameInput").val()
+      let inputEmail = $("#emailInput").val()
+      let inputAddress = $("#addressInput").val()
+      $.ajax({
+         type:'POST',
+         url:'../functions/editUsersInfo.php',
+         data:{
+            userId:inputUserId,
+            name:inputName,
+            email:inputEmail,
+            address:inputAddress
+         },
+         success: function(response){
+            alert(response)
+            hide()
+            refreshTable()
+         }
+      })
+   })
+   //function to edit user info
+   function userEdit(userId){
+      let idValue= $("#user-id" + userId).html()
+      let nameValue= $("#name" + userId).html()
+      let emailValue= $("#email" + userId).html()
+      let addressValue= $("#address" + userId).html()
+      $("#cover").css('display','block')
+      $("#userIDInput").val(idValue)
+      $("#nameInput").val(nameValue)
+      $("#emailInput").val(emailValue)
+      $("#addressInput").val(addressValue)
+   }
+   //function to delete user info
+   function userDelete(userID){
+      if (confirm("Are you sure you wanted to delete User's Account") == true) {
+         $.ajax({
+         type:'POST',
+         url:'../functions/deleteUserAccount.php',
+         data:{
+            userId: userID
+         },
+         success: function(res){
+            alert(res)
+            refreshTable()
+         }
+         })
+      }
+   }
+   //function to hide user info edit
+   function hide(){
+      $("#cover").css('display','none')
+   }
+   //function to refresh table's information
+   function refreshTable(){
       $.ajax({
          type:'GET',
          url:'../functions/getUsersInfo.php',
          success: function(response){
-            $("#tableBody").html(response);
+            $("#tableBody").html(response)
          }
-         });
-      setInterval(() => {
-         $.ajax({
-         type:'GET',
-         url:'../functions/getUsersInfo.php',
-         success: function(response){
-            $("#tableBody").html(response);
-         }
-         });
-      }, 1000);
+      })
+   }
+   //function to refresh table's information at page load
+   $(document).ready(function(){
+      refreshTable()
+      // setInterval(() => {
+      //    refreshTable()
+      // }, 1000);
    });
 </script>
 </body>
