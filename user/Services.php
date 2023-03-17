@@ -7,7 +7,6 @@
 	<link rel="stylesheet" href="../css/Services.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	<!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
 	<script src="../script/script.js"></script>
 	<title>Water Refilling Station</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">		
@@ -26,7 +25,7 @@
 			echo '<a href="Services.php"><i class="fa fa-fw fa-tint"></i>Services</a>';
 			echo '<a href="About Us.php"><i class="fa fa-fw fa-info"></i>About Us</a>';
 			echo '<a href="#signin"><i class="fa fa-fw fa-user"></i><span id="login-text">'.$_SESSION['user_name'].'</span></a>';
-			echo '<a href="../functions/logout.php">logout</a>';
+			echo '<a href="../functions/logout.php">Logout</a>';
 		}
 		?>
 		<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
@@ -36,13 +35,45 @@
 	<div id="product-container">
 		<div id="gallon" class="card">
 			<img src="../assets/gallon.png">
-			<h3 class="item-name">Round Water Container</h3>
-			<button class="buy" onclick="show('Round Water Container')">Buy</button>
+			<h1 class="item-name">Round Water Container</h1>
+			<table>
+				<tr>
+					<td>
+						<p class="price-label" >Price</p>
+					</td>
+					<td>
+						<p id="price">₱170</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="price-label" >Quantity</td>
+					<td>
+					<input type='number' class='input-number' id='quantity-round' onKeyDown="return false" value='1' min='1' name='quantity'>
+					</td>
+				</tr>
+			</table>
+			<button class="buy" onclick="show('Round Water Container','170')">Buy</button>
 		</div>
 		<div id="slim" class="card">
 			<img src="../assets/slim.png">
-			<h3 class="item-name">Slim Water Container</h3>
-			<button class="buy" onclick="show('Slim Water Container')">Buy</button>
+			<h1 class="item-name">Slim Water Container</h1>
+			<table>
+				<tr>
+					<td>
+						<p class="price-label" >Price</p>
+					</td>
+					<td>
+						<p id="price">₱150</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="price-label" >Quantity</td>
+					<td>
+					<input type='number' class='input-number' id='quantity-slim' onKeyDown="return false" value='1' min='1' name='quantity'>
+					</td>
+				</tr>
+			</table>
+			<button class="buy" onclick="show('Slim Water Container','150')">Buy</button>
 		</div>
 	</div>
 	<!-- REFILL -->
@@ -69,16 +100,20 @@
 					<td id='username'><?php echo $_SESSION['user_name']?></td>
 				</tr>
 				<tr>
-					<th>Payment Method</th>
-					<td>Cash On Delivery</td>
-				</tr>
-				<tr>
 					<th>Address</th>
 					<td id='address'><?php echo $_SESSION['user_address']?></td>
 				</tr>
 				<tr>
+					<th>Payment Method</th>
+					<td>Cash On Delivery</td>
+				</tr>
+				<tr>
+					<th>Price(w/ delivery)</th>
+					<td id='order-price'></td>
+				</tr>
+				<tr>
 					<th>Quantity</th>
-					<td><input type='number' id='quantity' value='1' min='1' name='quantity'></td>
+					<td id='order-quantity'></td>
 				</tr>
 				<tr>
 					<td colspan='2' style='text-align:center'>
@@ -96,8 +131,9 @@
 
 </body>
 	<script>
-		var session = <?php echo $_SESSION['user_id'] ?>; // js variable for session id
-		var RequestingRefill = false; //initial value
+		var session = <?php echo $_SESSION['user_id'] ?> // js variable for session id
+		var RequestingRefill = false //initial value
+
 		//function to check refill request state
 		//if the user is requesting for refill already or not
 		function requestState(){
@@ -123,9 +159,11 @@
 				}
         	})
 		}
-		requestState();
+
+		requestState()
+
 		//function to show order form
-		function show(order){
+		function show(order,price){
 			if(order == "Refill"){
 				$("#quantity").val(0)
 				$("#quantity").prop( "disabled", true )
@@ -151,19 +189,35 @@
 				{
 					$("#cover").css('display','block')
 					$("#order").html(order)
+					$("#order-price").html(price)
 				}
 			}
-			else
+			else if(order =="Round Water Container")
 			{
-				$("#quantity").val(1)
+				let roundQuantity = $("#quantity-round").val()
+				let totalPrice = roundQuantity * price
+				alert(totalPrice)
+				$("#order-quantity").html(roundQuantity)
 				$("#cover").css('display','block')
 				$("#order").html(order)
+				$("#order-price").html(price)
+
+			}else if(order =="Slim Water Container"){
+				let slimQuantity = $("#quantity-slim").val()
+				let totalPrice = slimQuantity * price
+				alert(totalPrice)
+				$("#order-quantity").html(slimQuantity)
+				$("#cover").css('display','block')
+				$("#order").html(order)
+				$("#order-price").html(price) 
 			}
 		}
+
 		//function to hide order form
 		function hide(){
             $("#cover").css('display','none')
         }
+
 		//function to issue order
 		$('#form').submit(function(event){
             event.preventDefault()
@@ -189,5 +243,9 @@
 				}
 			})
         })
+
+		// $("[type='number']").click(function(){
+			
+		// })
 	</script>
 </html>

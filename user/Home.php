@@ -8,9 +8,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../css/Home.css">
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js" 
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
@@ -29,7 +27,7 @@ session_start();
 			echo '<a href="Services.php"><i class="fa fa-fw fa-tint"></i>Services</a>';
 			echo '<a href="About Us.php"><i class="fa fa-fw fa-info"></i>About Us</a>';
 			echo '<a href="#signin"><i class="fa fa-fw fa-user"></i><span id="login-text">'.$_SESSION['user_name'].'</span></a>';
-			echo '<a href="../functions/logout.php">logout</a>';
+			echo '<a href="../functions/logout.php">Logout</a>';
 		}
 		?>
 		<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>

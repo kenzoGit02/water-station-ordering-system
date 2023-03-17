@@ -17,7 +17,7 @@ if(mysqli_num_rows($result) > 0){
 else
 {
     echo "<tr id='row'>";
-    echo "<td style = 'text-align:center;'colspan = '5'> There are no requests</td>";
+    echo "<td style = 'text-align:center;'colspan = '5'>There are no orders</td>";
     echo "</tr>";
 }
 ?>

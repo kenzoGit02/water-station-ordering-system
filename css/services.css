@@ -29,6 +29,15 @@ body{
 	border-radius:10px;
 	margin-bottom:20px;
 }
+.card p, .card h1{
+	margin:0;
+}
+.price-label{
+	font-weight: 300;
+}
+#price{
+	font-size: x-large;
+}
 .item-name{
 	margin:0;
 	margin-bottom:20px;
@@ -38,7 +47,11 @@ img{
   height: 200px;
   margin-bottom:20px;
 }
+.input-number{
+	width:40px;
+}
 .buy{
+	padding:10px 20px;
 	width:100%;
 }
 
@@ -75,7 +88,7 @@ img{
 	font-family: 'Proxima Nova', Arial, Helvetica, sans-serif;
 }
 .cover{
-    height:100vh;
+    height:100%;
     width:100%;
     background: rgba(0, 0, 0, .5);
     position:absolute;
@@ -93,7 +106,7 @@ img{
     left:50%;
     transform:translate(-50%, -50%);
     width:600px;
-    height:300px;
+    height:400px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,7 +127,7 @@ img{
 }
 #table-order-details td{
 	text-align:center;
-  font-weight: 300;
+  	font-weight: 300;
 }
 #table-order-details th, #table-order-details td{
 	padding-top:10px;
