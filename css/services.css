@@ -19,8 +19,7 @@ body{
 	justify-content:space-around;
 }
 .card{
-	max-width: 40%;
-	min-width: 20%;
+	min-width: 22%;
 	padding: 10px;
 	background-color: rgb(250, 250, 250, 0.4);
 	display:flex;
@@ -75,16 +74,18 @@ img{
   }
 }
 #service-refill{
-	text-align:center;
+	display:flex;
+	justify-content: center;
 }
 #refill-header{
 	margin:0;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 #refill-button{
 	font-size:20px;
 	font-weight: 700;
 	padding:20px 50px;
+	margin-top: 10px;
 	font-family: 'Proxima Nova', Arial, Helvetica, sans-serif;
 }
 .cover{
@@ -132,8 +133,12 @@ img{
 #table-order-details th, #table-order-details td{
 	padding-top:10px;
 }
+#span-total-price{
+	font-size: 30px;
+	font-weight: bold;
+}
 #table-order-header{
-	/* background: rgba(0, 0, 0, .1); */
+	background: rgba(0, 0, 0, .1);
 	width: 100%;
 	text-align:center;
 }

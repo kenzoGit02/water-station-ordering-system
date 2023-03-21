@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +16,11 @@
 	<!-- Navigation Bar -->
 	<div class="topnav" id="myTopnav">
 		<?php 
-		session_start();
 		if(isset($_SESSION['user_id'])){
 			echo '<a class="active" href="Home.php"><i class="fa fa-fw fa-home"></i>Home</a>';
 			echo '<a href="Services.php"><i class="fa fa-fw fa-tint"></i>Services</a>';
-			echo '<a href="About Us.php"><i class="fa fa-fw fa-info"></i>About Us</a>';
+			echo '<a href="#"><i class="fa fa-fw fa-info"></i>Order Details</a>';
+			echo '<a href="About Us.php"><i class="fa fa-fw fa-users"></i>About Us</a>';
 			echo '<a href="#signin"><i class="fa fa-fw fa-user"></i><span id="login-text">'.$_SESSION['user_name'].'</span></a>';
 			echo '<a href="../functions/logout.php">Logout</a>';
 		}

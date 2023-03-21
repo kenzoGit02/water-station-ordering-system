@@ -57,6 +57,7 @@ body {
     width: 120px;
     float: left;
 }
+
 /* Hamburger icon when menu is active */
 @media screen and (max-width: 600px) {
     .topnav a:not(:first-child) {

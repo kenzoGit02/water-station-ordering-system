@@ -47,11 +47,11 @@ body{
 <!-- nav bar -->
 <?php 
 if(isset($_SESSION['admin_name'])){
-   echo '<a class="active" href="admin_page.php"><i class="fa fa-fw fa-user"></i>Accounts</a>';
+   echo '<a class="active" href="admin_page.php"><i class="fa fa-fw fa-users"></i>Accounts</a>';
    echo '<a href="admin_rfll_request.php"><i class="fa fa-fw fa-tint"></i>Refills</a>';
-   echo '<a href="orders_page.php"><i class="fa fa-fw fa-info"></i>Orders</a>';
+   echo '<a href="orders_page.php"><i class="fa fa-fw fa-tint"></i>Orders</a>';
    echo '<a href="#signin"><i class="fa fa-fw fa-user"></i><span id="login-text">'.$_SESSION['admin_name'].'</span></a>';
-   echo '<a href="../functions/logout_admin.php">Logout</a>';
+   echo '<a href="../functions/logout_admin.php"><i class="fa fa-fw fa-arrow-head"></i>Logout</a>';
 }
 ?>
 <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>

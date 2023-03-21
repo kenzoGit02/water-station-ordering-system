@@ -49,12 +49,11 @@ th, td{
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-
 <?php 
 if(isset($_SESSION['admin_name'])){
-   echo '<a class="active" href="admin_page.php"><i class="fa fa-fw fa-user"></i>Accounts</a>';
+   echo '<a class="active" href="admin_page.php"><i class="fa fa-fw fa-users"></i>Accounts</a>';
    echo '<a href="admin_rfll_request.php"><i class="fa fa-fw fa-tint"></i>Refills</a>';
-   echo '<a href="orders_page.php"><i class="fa fa-fw fa-info"></i>Orders</a>';
+   echo '<a href="orders_page.php"><i class="fa fa-fw fa-tint"></i>Orders</a>';
    echo '<a href="#signin"><i class="fa fa-fw fa-user"></i><span id="login-text">'.$_SESSION['admin_name'].'</span></a>';
    echo '<a href="../functions/logout_admin.php">Logout</a>';
 }
@@ -63,11 +62,13 @@ if(isset($_SESSION['admin_name'])){
 </div>
 <table id="table">
     <tr>
-        <th colspan="3"><h1>Refill Requests</h1></th>
+        <th colspan="5"><h1>Refill Requests</h1></th>
     </tr>
     <tr>
         <th>Name</th>
         <th>Address</th>
+        <th>Quantity</th>
+        <th>Price</th>
         <th>Delivered & Paid</th>
     </tr>
     <tbody id="tableBody"></tbody>

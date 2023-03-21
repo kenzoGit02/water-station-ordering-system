@@ -3,8 +3,7 @@
 ?>
 <!DOCTYPE html>
 <head>
-	<link rel="stylesheet" href="../css/Home.css">
-	<link rel="stylesheet" href="../css/Services.css">
+	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<script src="../script/script.js"></script>
@@ -15,6 +14,8 @@
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
     crossorigin="anonymous"></script>
 	<!-- jquery cdn -->
+	<link rel="stylesheet" href="../css/Home.css">
+	<link rel="stylesheet" href="../css/Services.css">
 </head>
 <body>
 	<!-- Navigation Bar -->
@@ -23,7 +24,8 @@
 		if(isset($_SESSION['user_id'])){
 			echo '<a class="active" href="Home.php"><i class="fa fa-fw fa-home"></i>Home</a>';
 			echo '<a href="Services.php"><i class="fa fa-fw fa-tint"></i>Services</a>';
-			echo '<a href="About Us.php"><i class="fa fa-fw fa-info"></i>About Us</a>';
+			echo '<a href="#"><i class="fa fa-fw fa-info"></i>Order Details</a>';
+			echo '<a href="About Us.php"><i class="fa fa-fw fa-users"></i>About Us</a>';
 			echo '<a href="#signin"><i class="fa fa-fw fa-user"></i><span id="login-text">'.$_SESSION['user_name'].'</span></a>';
 			echo '<a href="../functions/logout.php">Logout</a>';
 		}
@@ -78,8 +80,12 @@
 	</div>
 	<!-- REFILL -->
 	<div id="service-refill">
-		<h1 id="refill-header"><pre>   </pre></h1>
-		<button id="refill-button" onclick="show('Refill')"><span id="text"></span></button>
+		<div class="card">
+			<h1 id="refill-header"><pre>   </pre></h1>
+			<label for="jug" id='label-refill-quantity'>Jugs to be refilled:</label>
+			<input type='number' name='jug' id='refill-quantity' class='input-number' onKeyDown="return false" value='0' min='0'>
+			<button id="refill-button" onclick="show('Refill','50')"><span id="text"></span></button>
+		</div>
 	</div>
 
 	<!-- Order Form -->
@@ -92,28 +98,33 @@
 			<input type="hidden" id="user_id"value="<?php echo $_SESSION['user_id']?>">
 			<table id='table-order-details'>
 				<tr>
-					<th>Order</th>
-					<td id='order'>Placeholder</td>
+					<th>Address</th>
+					<td id='address'><?php echo $_SESSION['user_address']?></td>
 				</tr>
 				<tr>
 					<th>Buyer</th>
 					<td id='username'><?php echo $_SESSION['user_name']?></td>
 				</tr>
 				<tr>
-					<th>Address</th>
-					<td id='address'><?php echo $_SESSION['user_address']?></td>
+					<th>Order</th>
+					<td id='order'></td>
 				</tr>
 				<tr>
 					<th>Payment Method</th>
 					<td>Cash On Delivery</td>
 				</tr>
 				<tr>
-					<th>Price(w/ delivery)</th>
+					<th>Price</th>
 					<td id='order-price'></td>
 				</tr>
 				<tr>
 					<th>Quantity</th>
 					<td id='order-quantity'></td>
+				</tr>
+				<tr>
+					<td id='td-total-price'colspan='2' style='text-align:center'>
+						<p>Total Price: ₱<span id='span-total-price'></span></p> 
+					</td>
 				</tr>
 				<tr>
 					<td colspan='2' style='text-align:center'>
@@ -147,31 +158,32 @@
 					if(data == "pending")
 					{
 						$("#text").text('CANCEL');
-						$("#refill-header").text('Cancel refill order?');
+						$("#refill-header").text('Cancel refill order?')
+						$("#label-refill-quantity").css('display','none')
+						$("#refill-quantity").css('display','none')
 						RequestingRefill = true;
 					}
 					else
 					{
-						$("#text").text('REFILL');
-						$("#refill-header").text('Ask for a refill?');
-						RequestingRefill = false;
+						$("#text").text('REFILL')
+						$("#refill-header").text('Ask for a refill?')
+						$("#label-refill-quantity").css('display','block')
+						$("#refill-quantity").css('display','block')
+						RequestingRefill = false
 					}
 				}
         	})
 		}
 
 		requestState()
-
 		//function to show order form
 		function show(order,price){
 			if(order == "Refill"){
-				$("#quantity").val(0)
-				$("#quantity").prop( "disabled", true )
+				//if there is already a pending request, refill button will be for cancelling
 				if(RequestingRefill == true)
 				{
 					// cancel order
 					if (confirm("Are you sure you wanted to cancel your request?") == true) {
-						text = "You pressed OK!";
 						let userID = $("#user_id").val()
 						$.ajax({
 							url:'../functions/cancelorder.php',
@@ -183,33 +195,48 @@
 								requestState()
 							}
 						})
+						return
 					}
 				}
-				else
-				{
+				// else
+				// {
+				// 	$("#cover").css('display','block')
+				// 	$("#order").html(order)
+				// 	$("#order-price").html(price)
+				// }
+				if($("#refill-quantity").val() > 0){
+					let jugQuantity = $("#refill-quantity").val()
+					let totalPrice = jugQuantity * price
+
+					$("#order-quantity").html(jugQuantity)
 					$("#cover").css('display','block')
 					$("#order").html(order)
 					$("#order-price").html(price)
+					$("#span-total-price").html(totalPrice)
+				}
+				else
+				{
+					alert("No jugs to be refilled")
 				}
 			}
 			else if(order =="Round Water Container")
 			{
 				let roundQuantity = $("#quantity-round").val()
 				let totalPrice = roundQuantity * price
-				alert(totalPrice)
 				$("#order-quantity").html(roundQuantity)
 				$("#cover").css('display','block')
 				$("#order").html(order)
 				$("#order-price").html(price)
+				$("#span-total-price").html(totalPrice) 
 
 			}else if(order =="Slim Water Container"){
 				let slimQuantity = $("#quantity-slim").val()
 				let totalPrice = slimQuantity * price
-				alert(totalPrice)
 				$("#order-quantity").html(slimQuantity)
 				$("#cover").css('display','block')
 				$("#order").html(order)
 				$("#order-price").html(price) 
+				$("#span-total-price").html(totalPrice) 
 			}
 		}
 
@@ -225,7 +252,8 @@
 			let name = $("#username").html()
 			let address = $("#address").html()
 			let userID = $("#user_id").val()
-			let quantity = $("#quantity").val()
+			let quantity = $("#order-quantity").html()
+			let total = $("#span-total-price").html()
 			$.ajax({
 				url:'../functions/postOrder.php',
 				type:'POST',
@@ -234,7 +262,8 @@
 					name: name,
 					address: address,
 					userID: userID,
-					quantity: quantity
+					quantity: quantity,
+					total: total
 				},
 				success:function(res){
 					hide()
