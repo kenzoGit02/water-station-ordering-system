@@ -1,57 +1,52 @@
 <?php
 
-@include '../functions/config.php';
+   include '../functions/config.php';
 
-session_start();
+   session_start();
 
-if(isset($_POST['submit'])){
+   if(isset($_POST['submit'])){
 
-   // $name = mysqli_real_escape_string($conn, $_POST['name']);
-   $email = $_POST['email'];
-   $pass = md5($_POST['password']);
-   // $cpass = md5($_POST['cpassword']);
-   // $user_type = $_POST['user_type'];
+      // $name = mysqli_real_escape_string($conn, $_POST['name']);
+      $email = $_POST['email'];
+      $pass = md5($_POST['password']);
+      // $cpass = md5($_POST['cpassword']);
+      // $user_type = $_POST['user_type'];
 
-   $select = "SELECT * FROM admin_form WHERE email = '$email' && password = '$pass' ";
+      $select = "SELECT * FROM admin_form WHERE email = '$email' && password = '$pass' ";
 
-   $result = mysqli_query($conn, $select);
+      $result = mysqli_query($conn, $select);
 
-   if(mysqli_num_rows($result) > 0){
+      if(mysqli_num_rows($result) > 0){
 
-      $row = mysqli_fetch_array($result);
+         $row = mysqli_fetch_array($result);
 
-      if($row['user_type'] == 'admin'){
-         $_SESSION['admin_name'] = $row['name'];
-         $_SESSION['admin_email'] = $row['email'];
-         $_SESSION['admin_id'] = $row['admin_id'];
+         if($row['user_type'] == 'admin'){
+            $_SESSION['admin_name'] = $row['name'];
+            $_SESSION['admin_email'] = $row['email'];
+            $_SESSION['admin_id'] = $row['admin_id'];
 
-         header('location:admin_page.php');
+            header('location:admin_page.php');
+         }
+      }else{
+         $error[] = 'incorrect email or password!';
       }
-   }else{
-      $error[] = 'incorrect email or password!';
-   }
-
-}
+   };
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>login form</title>
-
-   
-   <link rel="stylesheet" href="../css/style.css">
-
+   <link rel="stylesheet" href="../css/login_admin.css">
+   <title>ReWater Admin</title>
 </head>
 <body>
-   
+   <!-- LOGIN FORM -->
 <div class="form-container">
 
    <form action="" method="post">
-      <h3>login as admin now</h3>
+      <title>ReWater Admin</title>
       <?php
       if(isset($error)){
          foreach($error as $error){
@@ -66,6 +61,5 @@ if(isset($_POST['submit'])){
    </form>
 
 </div>
-
 </body>
 </html>

@@ -1,35 +1,36 @@
 <?php 
 	session_start();
+	if(!isset($_SESSION['user_id'])){
+		header('location:login_form.php');
+	}
 ?>
 <!DOCTYPE html>
+<html lang="en">
 <head>
-	
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/Home.css">
+	<link rel="stylesheet" href="../css/Services.css">
 	<script src="../script/script.js"></script>
-	<title>Water Refilling Station</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">		
 	<!-- jquery cdn -->
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js" 
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
     crossorigin="anonymous"></script>
 	<!-- jquery cdn -->
-	<link rel="stylesheet" href="../css/Home.css">
-	<link rel="stylesheet" href="../css/Services.css">
+	<title>ReWater</title>
 </head>
 <body>
 	<!-- Navigation Bar -->
 	<div class="topnav" id="myTopnav">
-		<?php 
-		if(isset($_SESSION['user_id'])){
-			echo '<a class="active" href="Home.php"><i class="fa fa-fw fa-home"></i>Home</a>';
-			echo '<a href="Services.php"><i class="fa fa-fw fa-tint"></i>Services</a>';
-			echo '<a href="#"><i class="fa fa-fw fa-info"></i>Order Details</a>';
-			echo '<a href="About Us.php"><i class="fa fa-fw fa-users"></i>About Us</a>';
-			echo '<a href="#signin"><i class="fa fa-fw fa-user"></i><span id="login-text">'.$_SESSION['user_name'].'</span></a>';
-			echo '<a href="../functions/logout.php">Logout</a>';
-		}
-		?>
+        <a class="active" href="Home.php"><i class="fa fa-fw fa-home"></i>Home</a>
+		<a href="Services.php"><i class="fa fa-fw fa-tint"></i>Services</a>
+		<a href="order_details.php"><i class="fa fa-fw fa-info"></i>Order Details</a>
+		<a href="about_us.php"><i class="fa fa-fw fa-users"></i>About Us</a>
+		<a href="user_profile.php"><i class="fa fa-fw fa-user"></i><span id="login-text"><?php echo $_SESSION['user_name']?></span></a>
+		<a href="../functions/logout.php">Logout</a>
 		<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 	</div>
 
@@ -141,13 +142,13 @@
 	</div>
 
 </body>
-	<script>
-		var session = <?php echo $_SESSION['user_id'] ?> // js variable for session id
-		var RequestingRefill = false //initial value
+<script>
+	var session = <?php echo $_SESSION['user_id'] ?> // js variable for session id
+	var RequestingRefill = false //initial value
 
-		//function to check refill request state
-		//if the user is requesting for refill already or not
-		function requestState(){
+	//function to check refill request state
+	//if the user is requesting for refill already or not
+	function requestState(){
 			$.ajax({
 				type:'POST',
 				url:'../functions/requestState.php',
@@ -173,11 +174,11 @@
 					}
 				}
         	})
-		}
+	}
 
-		requestState()
-		//function to show order form
-		function show(order,price){
+	requestState()
+	//function to show order form
+	function show(order,price){
 			if(order == "Refill"){
 				//if there is already a pending request, refill button will be for cancelling
 				if(RequestingRefill == true)
@@ -238,15 +239,15 @@
 				$("#order-price").html(price) 
 				$("#span-total-price").html(totalPrice) 
 			}
-		}
+	}
 
-		//function to hide order form
-		function hide(){
+	//function to hide order form
+	function hide(){
             $("#cover").css('display','none')
-        }
+    }
 
-		//function to issue order
-		$('#form').submit(function(event){
+	//function to issue order
+	$('#form').submit(function(event){
             event.preventDefault()
 			let order = $("#order").html()
 			let name = $("#username").html()
@@ -271,10 +272,6 @@
 					//go to order details
 				}
 			})
-        })
-
-		// $("[type='number']").click(function(){
-			
-		// })
-	</script>
+    })
+</script>
 </html>
