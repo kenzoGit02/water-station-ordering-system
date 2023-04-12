@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   	<link rel="stylesheet" href="../css/Home.css">
+  	<link rel="stylesheet" href="../css/order_details.css">
     <script src="../script/script.js"></script>
     <!-- jquery cdn -->
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js" 
@@ -31,10 +32,52 @@
 		<a href="../functions/logout.php">Logout</a>
 		<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 	</div>
-
+    <!-- Main -->
+    <div id="wrapper">
+        <!-- Pending Orders -->
+        <div id="container-pending">
+            <div id='pending-card-header'>
+                <h1>PENDING</h1>
+            </div>
+            <div id="pending-card-container">
+            </div>
+        </div>
+        <!-- Received Orders -->
+        <div id="container-received" >
+            <div id='received-card-header'>
+                <h1>RECEIVED</h1>
+            </div>
+            <div id="received-card-container">
+            </div>
+        </div>
+    </div>
     <!-- Footer -->
 	<div class="footer">
 		<p>&copy; 2023 All Rights Reserved.</p>
 	</div>
 </body>
+<script>
+    $(document).ready(function(){
+        function getPending(){
+            $.ajax({
+                type:'GET',
+                url:'../functions/getPendingOrder.php',
+                success: function(response){
+                    $("#pending-card-container").html(response);
+                }
+            });
+        }
+        function getReceived(){
+            $.ajax({
+                type:'GET',
+                url:'../functions/getReceivedOrder.php',
+                success: function(res){
+                    $("#received-card-container").html(res);
+                }
+            });
+        }
+        getPending();
+        getReceived();
+    });
+</script>
 </html>

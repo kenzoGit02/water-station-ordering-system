@@ -1,5 +1,5 @@
 <?php 
-@include 'config.php';
+include 'config.php';
 $sql = "SELECT order_id,`name`, `address`, `order`, `quantity`, `price` FROM user_form, order_tbl WHERE user_form.user_id = order_tbl.user_id AND `status` = 'pending' AND `order` != 'Refill';";
 $result = mysqli_query($conn,$sql);
 if(mysqli_num_rows($result) > 0){
