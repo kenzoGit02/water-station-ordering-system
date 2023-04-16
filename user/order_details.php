@@ -14,6 +14,9 @@
   	<link rel="stylesheet" href="../css/Home.css">
   	<link rel="stylesheet" href="../css/order_details.css">
     <script src="../script/script.js"></script>
+    <!-- SweetAlert2 cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert2 cdn -->
     <!-- jquery cdn -->
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js" 
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
@@ -57,27 +60,41 @@
 	</div>
 </body>
 <script>
-    $(document).ready(function(){
-        function getPending(){
-            $.ajax({
-                type:'GET',
-                url:'../functions/getPendingOrder.php',
-                success: function(response){
-                    $("#pending-card-container").html(response);
-                }
-            });
-        }
-        function getReceived(){
-            $.ajax({
-                type:'GET',
-                url:'../functions/getReceivedOrder.php',
-                success: function(res){
-                    $("#received-card-container").html(res);
-                }
-            });
-        }
-        getPending();
-        getReceived();
-    });
+    function getPending(){
+        $.ajax({
+            type:'GET',
+            url:'../functions/getPendingOrder.php',
+            success: function(response){
+                $("#pending-card-container").html(response);
+            }
+        });
+    }
+    function getReceived(){
+        $.ajax({
+            type:'GET',
+            url:'../functions/getReceivedOrder.php',
+            success: function(response){
+                $("#received-card-container").html(response);
+            }
+        });
+    }
+    function cancel(OrderID){
+        $.ajax({
+            type:'POST',
+            url:'../functions/cancelOrder.php',
+            data:{
+                orderID : OrderID
+            },
+            success: function(){
+                Swal.fire({
+                    title: 'Order Cancelled',
+                    icon: 'success'
+                })
+                getPending();
+            }
+        });
+    }
+    getPending();
+    getReceived();
 </script>
 </html>

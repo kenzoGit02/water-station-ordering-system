@@ -15,6 +15,9 @@
 	<link rel="stylesheet" href="../css/Home.css">
 	<link rel="stylesheet" href="../css/Services.css">
 	<script src="../script/script.js"></script>
+    <!-- SweetAlert2 cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert2 cdn -->
 	<!-- jquery cdn -->
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js" 
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
@@ -187,7 +190,7 @@
 					if (confirm("Are you sure you wanted to cancel your request?") == true) {
 						let userID = $("#user_id").val()
 						$.ajax({
-							url:'../functions/cancelorder.php',
+							url:'../functions/cancelRefill.php',
 							type:'POST',
 							data: {
 								userID: userID,
@@ -199,12 +202,6 @@
 						return
 					}
 				}
-				// else
-				// {
-				// 	$("#cover").css('display','block')
-				// 	$("#order").html(order)
-				// 	$("#order-price").html(price)
-				// }
 				if($("#refill-quantity").val() > 0){
 					let jugQuantity = $("#refill-quantity").val()
 					let totalPrice = jugQuantity * price
@@ -217,7 +214,10 @@
 				}
 				else
 				{
-					alert("No jugs to be refilled")
+					Swal.fire({
+						title:'Please add how many container to be refilled.',
+						icon:'info'
+					})
 				}
 			}
 			else if(order =="Round Water Container")

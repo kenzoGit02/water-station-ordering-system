@@ -19,16 +19,17 @@ if(mysqli_num_rows($result) > 0){
                     <img src='../assets/".$order.".png'>
                 </div>
                 <div id='pending-details-bar'>
-                    <div id='pending-details-bar-name'>".$row['order']."</div>
-                    <div id='pending-details-bar-qty'>Quantity: ".$row['quantity']."</div>
-                    <div id='pending-details-bar-prc'>Price to Pay: ₱".$row['price']."</div>
-                    <div id='pending-details-bar-do'>Date Ordered: ".$row['date_ordered']."</div>
+                    <div class='pending-details-bar-name'>".$row['order']."</div>
+                    <div class='pending-details-bar-qty'>Quantity: ".$row['quantity']."</div>
+                    <div class='pending-details-bar-prc'>Price to Pay: ₱".$row['price']."</div>
+                    <div class='pending-details-bar-do'>Date Ordered: ".$row['date_ordered']."</div>
+                    <div class='pending-details-bar-cancel'><button onclick='cancel(".$row['order_id'].")'>Cancel</button></div>
                 </div>
             </div>";
     }
 }
 else
 {
-    echo "No Pending Orders";
+    echo "<p style='text-align:center;'>No Pending Orders</p>";
 }
 ?>

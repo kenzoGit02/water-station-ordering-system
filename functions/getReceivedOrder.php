@@ -2,7 +2,7 @@
 include 'config.php';
 session_start();
 $sessionID = $_SESSION['user_id'];
-$sql = "SELECT * FROM order_tbl WHERE `user_id` = '$sessionID' AND `status` = 'completed' AND `order` != 'refill'";
+$sql = "SELECT * FROM order_tbl WHERE `user_id` = '$sessionID' AND `status` = 'completed' AND `order` != 'refill' ORDER BY `order_id` DESC";
 $result = mysqli_query($conn,$sql);
 
 if(mysqli_num_rows($result) > 0){
@@ -30,6 +30,6 @@ if(mysqli_num_rows($result) > 0){
 }
 else
 {
-    echo "No Received Orders";
+    echo "<p style='text-align:center;'>No Received Orders</p>";
 }
 ?>

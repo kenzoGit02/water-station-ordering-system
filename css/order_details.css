@@ -42,20 +42,31 @@ img{
     width: 80%;
     height: 100%;
 }
-#pending-details-bar > div{
+.pending-details-bar > div{
     padding-left: 2%;
 }
-#pending-details-bar-name{
+.pending-details-bar-name{
     flex-basis: 50%;
 }
-#pending-details-bar-qty{
+.pending-details-bar-qty{
     flex-basis: 50%;
 }
-#pending-details-bar-prc{
+.pending-details-bar-prc{
     flex-basis: 50%;
 }
-#pending-details-bar-do{
+.pending-details-bar-do{
     flex-basis: 50%;
+}
+.pending-details-bar-cancel{
+    flex-basis: 100%;
+    display: flex;
+    justify-content: end;
+}
+.pending-details-bar-cancel > button{
+    padding: 5px 10px;
+    font-size: 20px;
+    color: #fcfcfc;
+    background-color: #00c3ff;
 }
 
     /* RECEIVED */

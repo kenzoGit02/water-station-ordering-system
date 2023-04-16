@@ -1,8 +1,9 @@
 <?php
 include 'config.php';
 
-echo $userID = $_POST['userID'];
-echo $status = 'pending';
-$sql = "UPDATE `order_tbl` SET `status`='cancelled' WHERE `user_id`='$userID' && `status` = '$status'";
+
+$status = 'pending';
+$orderID = $_POST['orderID'];
+$sql = "UPDATE `order_tbl` SET `status`='cancelled' WHERE `order_id`='$orderID' && `status` = '$status'";
 mysqli_query($conn, $sql);
 ?>
