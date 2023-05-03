@@ -1,8 +1,8 @@
 <?php 
 
 @include 'config.php';
-
-$user_id = $_POST['id'];
+session_start();
+$user_id = $_SESSION['user_id'];
 
 $sql = "SELECT status FROM order_tbl WHERE `order` = 'Refill' && user_id = '$user_id' && `status` = 'pending';";
 $result = mysqli_query($conn, $sql);

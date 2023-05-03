@@ -11,14 +11,14 @@ if(mysqli_num_rows($result) > 0){
         echo "<td id='order'>" . $row['order'] . "</td>";
         echo "<td id='quantity'>" . $row['quantity'] . "</td>";
         echo "<td id='price'>₱" . $row['price'] . "</td>";
-        echo "<td id='action'><button id='button-confirm' onclick='finishOrder(".$row['order_id'].")'>Confirm</button></td>";
+        echo "<td id='action' class='text-center'><button class='btn btn-primary' onclick='finishOrder(".$row['order_id'].")'>Confirm</button></td>";
         echo "</tr>";
     }
 }
 else
 {
     echo "<tr id='row'>";
-    echo "<td style = 'text-align:center;'colspan = '6'>There are no orders</td>";
+    echo "<td class='text-center'colspan = '6'>There are no orders</td>";
     echo "</tr>";
 }
 ?>

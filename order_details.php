@@ -1,10 +1,8 @@
-<?php
-    include '../functions/config.php';
+<?php 
     session_start();
-
-    if(!isset($_SESSION['admin_name'])){
-    header('location:login_admin.php');
-    };
+    if(!isset($_SESSION['user_id'])){
+        header('location:login_form.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,19 +22,13 @@
     <!-- SweetAlert2 cdn -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- SweetAlert2 cdn -->
-    <link rel="stylesheet" href="../css/Home.css">
+    <link rel="stylesheet" href="css/Home.css">
 	<!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" 
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
     crossorigin="anonymous"></script>
     <!-- jquery cdn -->
-	<title>ReWater Admin</title>
-<style>
-    body{
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-</style>
+    <title>ReWater</title>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -48,21 +40,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link px-2 py-3" href="admin_page.php"><i class="fa fa-fw fa-users"></i>Accounts <span class="sr-only">(current)</span></a>
+                    <a class="nav-link px-2 py-3" href="Home.php"><i class="fa fa-fw fa-home"></i>Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-2 py-3" href="admin_rfll_request.php"><i class="fa fa-fw fa-tint"></i>Refills</a>
+                    <a class="nav-link px-2 py-3" href="Services.php"><i class="fa fa-fw fa-tint"></i>Buy</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link px-2 py-3" href="orders_page.php"><i class="fa fa-fw fa-cart-shopping"></i>Orders</a>
+                    <a class="nav-link px-2 py-3" href="order_details.php"><i class="fa fa-fw fa-info"></i>Order Details</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-2 py-3" href="admin_schedule.php"><i class="fa fa-fw fa-calendar-days"></i>Schedules</a>
+                    <a class="nav-link px-2 py-3" href="about_us.php"><i class="fa fa-fw fa-users"></i>About Us</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link px-2 py-3" href="admin_income_statement.php"><i class="fa fa-fw fa-money-bill-trend-up"></i>Income Statement</a>
-                </li>
-                <li class="nav-item dropdown active">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle px-2 py-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa-solid fa-bell"></i>
                     </a>
@@ -74,60 +63,87 @@
                     </div>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link px-2 py-3" href="#"><i class="fa fa-fw fa-user"></i><span id="login-text"><?php echo $_SESSION['admin_name']?></span></a>
+                    <a class="nav-link px-2 py-3" href="user_profile.php"><i class="fa fa-fw fa-user"></i><span id="login-text"><?php echo $_SESSION['user_name']?></span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link px-2 py-3" href="../functions/logout_admin.php"><i class="fa fa-fw fa-right-to-bracket"></i>Logout</a>
+                    <a class="nav-link px-2 py-3" href="functions/logout.php"><i class="fa fa-fw fa-right-to-bracket"></i>Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <!-- Order Table -->
-    <main class="container container-fluid">
-        <section class="row d.flex justify-content-center">
-            <h1 class="mt-3">Jug Orders</h1>
-        </section>
+
+    <!-- Main -->
+    <main class="container-fluid">
         <div class="row">
-            <table class="table bg-light table-hover rounded table-bordered" id="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Order</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Delivered & Paid</th>
-                    </tr>
-                </thead>
-                <tbody id='table-body'></tbody>
-            </table>
+            <!-- Pending Orders -->
+            <div class="col-lg-6" >
+                <h1 class="text-center">
+                    PENDING
+                </h1>
+                <div class="container-fluid" id="pending-card-container">
+                </div>
+                
+
+            </div>
+            <!-- Received Orders -->
+            <div class="col-lg-6" >
+                <h1 class="text-center">
+                    RECEIVED
+                </h1>
+                <div class="container-fluid" id="received-card-container">
+                </div>
+            </div>
         </div>
     </main>
     
+    <!-- Footer -->
+	<div class="footer">
+		<p>&copy; 2023 All Rights Reserved.</p>
+	</div>
 </body>
-
 <script>
-    function finishOrder(id){
+    function getPending(){
         $.ajax({
-            type:'POST',
-            url:'../functions/completeOrder.php',
-            data:{
-                order_id: id
+            type:'GET',
+            url:'functions/getPendingOrder.php',
+            success: function(response){
+                $("#pending-card-container").html(response);
             }
         });
     }
-    function getOrders(){
+    function getReceived(){
         $.ajax({
-            type:'POST',
-            url:'../functions/getOrders.php',
+            type:'GET',
+            url:'functions/getReceivedOrder.php',
             success: function(response){
-                $("#table-body").html(response);
+                $("#received-card-container").html(response);
             }
         });
-    };
-    getOrders();
-    setInterval(() => {
-        getOrders();
-    }, 2000);
+    }
+    function cancel(OrderID){
+        Swal.fire({
+            title: 'Are you sure you wanted to cancel your order?',
+            icon: 'info',
+            confirmButtonText:'Confirm',
+            showCancelButton:'true'
+        }).then((result) => {
+            if(result.isConfirmed){
+                $.ajax({
+                    type:'POST',
+                    url:'functions/cancelOrder.php',
+                    data:{
+                        orderID : OrderID
+                    },
+                    success: function(){
+                        Swal.fire('Order Cancelled','','success');
+                        getPending();
+                    }
+                });
+            }
+        })
+        
+    }
+    getPending();
+    getReceived();
 </script>
 </html>

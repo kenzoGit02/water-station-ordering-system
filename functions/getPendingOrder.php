@@ -14,22 +14,46 @@ if(mysqli_num_rows($result) > 0){
         {
             $order = "gallon";
         }
-        echo "<div class='card'>
-                <div class='card-img'>
-                    <img src='../assets/".$order.".png'>
-                </div>
-                <div id='pending-details-bar'>
-                    <div class='pending-details-bar-name'>".$row['order']."</div>
-                    <div class='pending-details-bar-qty'>Quantity: ".$row['quantity']."</div>
-                    <div class='pending-details-bar-prc'>Price to Pay: ₱".$row['price']."</div>
-                    <div class='pending-details-bar-do'>Date Ordered: ".$row['date_ordered']."</div>
-                    <div class='pending-details-bar-cancel'><button onclick='cancel(".$row['order_id'].")'>Cancel</button></div>
+        echo "<div class='card d-flex flex-row mb-2'>
+                <img class='card-img-top' src='assets/".$order.".png' style='width:30%'>
+                <div class='card-body'>
+                    <div class='container-fluid'>
+                        <div class='row'>
+                            <div class='col-sm-8'>
+                                <p>
+                                ".$row['order']."
+                                </p>
+                            </div>
+                            <div class='col-sm-4'>
+                                <p>
+                                <span class='text-muted'>Quantity: </span>".$row['quantity']."
+                                </p>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-sm-5'>
+                                <p>
+                                <span class='text-muted'>Price to Pay: </span>₱".$row['price']."
+                                </p>
+                            </div>
+                            <div class='col-sm-7'>
+                                <p>
+                                    <span class='text-muted'>Date Ordered: </span>".$row['date_ordered']."
+                                </p>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-sm-12 text-right'>
+                                <button class='btn btn-primary' onclick='cancel(".$row['order_id'].")'>Cancel</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>";
     }
 }
 else
 {
-    echo "<p style='text-align:center;'>No Pending Orders</p>";
+    echo "<p class='text-center''>No Pending Orders</p>";
 }
 ?>

@@ -21,9 +21,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- bootstrapcdn -->
-    <!-- SweetAlert2 cdn -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- SweetAlert2 cdn -->
     <link rel="stylesheet" href="../css/Home.css">
 	<!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" 
@@ -53,13 +50,13 @@
                 <li class="nav-item">
                     <a class="nav-link px-2 py-3" href="admin_rfll_request.php"><i class="fa fa-fw fa-tint"></i>Refills</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link px-2 py-3" href="orders_page.php"><i class="fa fa-fw fa-cart-shopping"></i>Orders</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-2 py-3" href="admin_schedule.php"><i class="fa fa-fw fa-calendar-days"></i>Schedules</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link px-2 py-3" href="admin_income_statement.php"><i class="fa fa-fw fa-money-bill-trend-up"></i>Income Statement</a>
                 </li>
                 <li class="nav-item dropdown active">
@@ -80,54 +77,20 @@
                     <a class="nav-link px-2 py-3" href="../functions/logout_admin.php"><i class="fa fa-fw fa-right-to-bracket"></i>Logout</a>
                 </li>
             </ul>
+            <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
         </div>
     </nav>
-    <!-- Order Table -->
-    <main class="container container-fluid">
-        <section class="row d.flex justify-content-center">
-            <h1 class="mt-3">Jug Orders</h1>
-        </section>
+
+
+    <main class="container my-5">
         <div class="row">
-            <table class="table bg-light table-hover rounded table-bordered" id="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Order</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Delivered & Paid</th>
-                    </tr>
-                </thead>
-                <tbody id='table-body'></tbody>
-            </table>
+            <div class="col-lg">
+                <div class="h1 text-center">Ccompute Income Statement</div>
+            </div>
         </div>
     </main>
-    
 </body>
-
-<script>
-    function finishOrder(id){
-        $.ajax({
-            type:'POST',
-            url:'../functions/completeOrder.php',
-            data:{
-                order_id: id
-            }
-        });
-    }
-    function getOrders(){
-        $.ajax({
-            type:'POST',
-            url:'../functions/getOrders.php',
-            success: function(response){
-                $("#table-body").html(response);
-            }
-        });
-    };
-    getOrders();
-    setInterval(() => {
-        getOrders();
-    }, 2000);
-</script>
 </html>

@@ -2,7 +2,7 @@
 	box-sizing: border-box;
 }
 body{
-  position:relative;
+  position: relative;
 }
 .cover{
     height:100vh;
@@ -33,10 +33,4 @@ body{
 	position:absolute;
 	top:0%;
 	right:1%;
-}
-#button-edit, #button-delete{
-    padding: 10px 20px;
-}
-#action{
-    text-align: center;
 }

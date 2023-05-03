@@ -1,18 +1,16 @@
-<?php
-    include '../functions/config.php';
-    session_start();
-
-    if(!isset($_SESSION['admin_name'])){
-    header('location:login_admin.php');
-    };
+<?php 
+	session_start();
+	if(!isset($_SESSION['user_id'])){
+		header('location:login_form.php');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- fontawesomecdn -->
+	<!-- fontawesomecdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- fontawesomecdn -->
     <!-- bootstrapcdn -->
@@ -21,25 +19,16 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- bootstrapcdn -->
-    <!-- SweetAlert2 cdn -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- SweetAlert2 cdn -->
-    <link rel="stylesheet" href="../css/Home.css">
+    <link rel="stylesheet" href="css/Home.css">
 	<!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" 
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" 
     crossorigin="anonymous"></script>
     <!-- jquery cdn -->
-	<title>ReWater Admin</title>
-<style>
-    body{
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-</style>
+    <title>ReWater</title>
 </head>
 <body>
-    <!-- Navigation Bar -->
+	<!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand font-weight-bold" href="#">ReWater</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,22 +36,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link px-2 py-3" href="admin_page.php"><i class="fa fa-fw fa-users"></i>Accounts <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link px-2 py-3" href="admin_rfll_request.php"><i class="fa fa-fw fa-tint"></i>Refills</a>
-                </li>
                 <li class="nav-item active">
-                    <a class="nav-link px-2 py-3" href="orders_page.php"><i class="fa fa-fw fa-cart-shopping"></i>Orders</a>
+                    <a class="nav-link px-2 py-3" href="Home.php"><i class="fa fa-fw fa-home"></i>Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-2 py-3" href="admin_schedule.php"><i class="fa fa-fw fa-calendar-days"></i>Schedules</a>
+                    <a class="nav-link px-2 py-3" href="Services.php"><i class="fa fa-fw fa-tint"></i>Buy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-2 py-3" href="admin_income_statement.php"><i class="fa fa-fw fa-money-bill-trend-up"></i>Income Statement</a>
+                    <a class="nav-link px-2 py-3" href="order_details.php"><i class="fa fa-fw fa-info"></i>Order Details</a>
                 </li>
-                <li class="nav-item dropdown active">
+                <li class="nav-item">
+                    <a class="nav-link px-2 py-3" href="about_us.php"><i class="fa fa-fw fa-users"></i>About Us</a>
+                </li>
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle px-2 py-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa-solid fa-bell"></i>
                     </a>
@@ -74,60 +60,48 @@
                     </div>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link px-2 py-3" href="#"><i class="fa fa-fw fa-user"></i><span id="login-text"><?php echo $_SESSION['admin_name']?></span></a>
+                    <a class="nav-link px-2 py-3" href="user_profile.php"><i class="fa fa-fw fa-user"></i><span id="login-text"><?php echo $_SESSION['user_name']?></span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link px-2 py-3" href="../functions/logout_admin.php"><i class="fa fa-fw fa-right-to-bracket"></i>Logout</a>
+                    <a class="nav-link px-2 py-3" href="functions/logout.php"><i class="fa fa-fw fa-right-to-bracket"></i>Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <!-- Order Table -->
-    <main class="container container-fluid">
-        <section class="row d.flex justify-content-center">
-            <h1 class="mt-3">Jug Orders</h1>
-        </section>
+
+	<!-- Content -->
+    <main class="container mt-2">
         <div class="row">
-            <table class="table bg-light table-hover rounded table-bordered" id="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Order</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Delivered & Paid</th>
-                    </tr>
-                </thead>
-                <tbody id='table-body'></tbody>
-            </table>
+            <div class="col-md">
+                <h1 class="text-center">
+                "Refresh your body, refresh your life - quench your thirst with our pure and affordable water."
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <h3>
+                    
+                </h3>
+                <p>
+                    We provide safe and clean drinking water to our customers.
+                </p>
+                <h3>
+                    What services do we offer?
+                </h3>
+                <p>
+                    At our water refilling station, we are committed to providing our customers with the best 
+                    possible experience. To achieve this, we offer a range of services that cater to the diverse needs 
+                    and preferences of our customers. Our online ordering and delivery services make it easy for customers 
+                    to place orders from the comfort of their homes and have their water delivered to their doorstep. 
+                </p>
+            </div>
         </div>
     </main>
-    
-</body>
 
-<script>
-    function finishOrder(id){
-        $.ajax({
-            type:'POST',
-            url:'../functions/completeOrder.php',
-            data:{
-                order_id: id
-            }
-        });
-    }
-    function getOrders(){
-        $.ajax({
-            type:'POST',
-            url:'../functions/getOrders.php',
-            success: function(response){
-                $("#table-body").html(response);
-            }
-        });
-    };
-    getOrders();
-    setInterval(() => {
-        getOrders();
-    }, 2000);
-</script>
+	<!-- Footer -->
+	<div class="footer">
+		<p>&copy; 2023 All Rights Reserved.</p>
+	</div>
+</body>
 </html>
