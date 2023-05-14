@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <!-- fontawesomecdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- fontawesomecdn -->
@@ -31,12 +31,12 @@
     crossorigin="anonymous"></script>
     <!-- jquery cdn -->
 	<title>ReWater Admin</title>
-<style>
-    body{
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-</style>
+    <style>
+        body{
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -62,7 +62,7 @@
                 <li class="nav-item">
                     <a class="nav-link px-2 py-3" href="admin_income_statement.php"><i class="fa fa-fw fa-money-bill-trend-up"></i>Income Statement</a>
                 </li>
-                <li class="nav-item dropdown active">
+                <!-- <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle px-2 py-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa-solid fa-bell"></i>
                     </a>
@@ -72,7 +72,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
                     </div>
-                </li>
+                </li> -->
                 <li class="nav-item active">
                     <a class="nav-link px-2 py-3" href="#"><i class="fa fa-fw fa-user"></i><span id="login-text"><?php echo $_SESSION['admin_name']?></span></a>
                 </li>
@@ -82,12 +82,52 @@
             </ul>
         </div>
     </nav>
+
+    <!-- Reject Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+                <h5 class="text-muted">Order No# <span id="order-no"></span></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- BODY -->
+			<div class="modal-body">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<h4 class="">Reject <span id="reject-user-name"></span>'s Order</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-10">
+							<textarea class="form-control" placeholder="Add reason why" id="message" cols="30" rows="2"></textarea>
+						</div>
+						<div class="col-1"></div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" id="read-button" onclick="confirmReject()">Confirm</button>
+			</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- maintenance text -->
+    <h3 class="btn-outline-info text-center blink" id="maintenance-text" style="display:none">
+        DAY FOR MONTHLY MAINTENANCE OF WATER FILTER!
+    </h3>
+
     <!-- Order Table -->
     <main class="container container-fluid">
         <section class="row d.flex justify-content-center">
             <h1 class="mt-3">Jug Orders</h1>
         </section>
-        <div class="row">
+        <div class="row" style="overflow:auto">
             <table class="table bg-light table-hover rounded table-bordered" id="table">
                 <thead>
                     <tr>
@@ -107,15 +147,72 @@
 </body>
 
 <script>
-    function finishOrder(id){
+    function checkMaintenance(){
         $.ajax({
-            type:'POST',
-            url:'../functions/completeOrder.php',
-            data:{
-                order_id: id
+            type:'GET',
+            url: '../functions/getMaintenanceDate.php',
+            success: function(res){
+                if(res == 1){
+                    $("#maintenance-text").css("display","block");
+                }else{
+                    $("#maintenance-text").css("display","none");
+                }
             }
         });
     }
+    checkMaintenance();
+
+    function finishOrder(order_id,order,user_id,quantity,price){
+        Swal.fire({
+            title:'Confirm Delivered and Paid',
+            icon:'question',
+            confirmButtonText: 'Confirm',
+            confirmButtonColor: '#007BFF',
+            showCancelButton: true,
+            focusConfirm: false
+        })
+        .then((result)=>{
+            if(result.isConfirmed){
+                $.ajax({
+                    type:'POST',
+                    url:'../functions/completeOrder.php',
+                    data:{
+                        order_id: order_id,
+                        order : order,
+                        user_id: user_id,
+                        quantity: quantity,
+                        price: price
+                    }
+                });
+            }
+        });
+    }
+
+    function rejectForm(order_id, user_name){
+        $("#order-no").html(order_id);
+        $("#reject-user-name").html(user_name);
+    }
+
+    function confirmReject(){
+        let order_id = $("#order-no").html();
+        let message = $("#message").val();
+        $.ajax({
+            type:'POST',
+            url:'../functions/rejectOrder.php',
+            data:{
+                order_id: order_id,
+                message: message
+            },
+            success: (res)=> {
+                Swal.fire({
+                    title:'Successfully Rejected',
+                    icon:'success',
+                    confirmButtonColor: '#007BFF'
+                });
+            }
+        });
+    }
+    
     function getOrders(){
         $.ajax({
             type:'POST',

@@ -16,35 +16,35 @@ if(mysqli_num_rows($result) > 0){
         }
         echo "<div class='card d-flex flex-row mb-2'>
                 <img class='card-img-top' src='assets/".$order.".png' style='width:30%'>
-                <div class='card-body'>
+                <div class='card-body p-0'>
                     <div class='container-fluid'>
                         <div class='row'>
                             <div class='col-sm-8'>
-                                <p>
+                                <p class='my-0 my-sm-2 my-md-4 my-lg-1'>
                                 ".$row['order']."
                                 </p>
                             </div>
                             <div class='col-sm-4'>
-                                <p>
+                                <p class='my-0 my-sm-2 my-md-4 my-lg-1'>
                                 <span class='text-muted'>Quantity: </span>".$row['quantity']."
                                 </p>
                             </div>
                         </div>
                         <div class='row'>
                             <div class='col-sm-5'>
-                                <p>
-                                <span class='text-muted'>Price to Pay: </span>₱".$row['price']."
+                                <p class='my-0 my-sm-2 my-md-4 my-lg-1'>
+                                <span class='text-muted'>To Pay: </span>₱".$row['price']."
                                 </p>
                             </div>
                             <div class='col-sm-7'>
-                                <p>
-                                    <span class='text-muted'>Date Ordered: </span>".$row['date_ordered']."
+                                <p class='my-0 my-sm-2 my-md-4 my-lg-1'>
+                                    <span class='text-muted'>Ordered: </span>".$row['date_ordered']."
                                 </p>
                             </div>
                         </div>
                         <div class='row'>
                             <div class='col-sm-12 text-right'>
-                                <button class='btn btn-primary' onclick='cancel(".$row['order_id'].")'>Cancel</button>
+                                <button class='btn btn-primary mb-1 mt-0 mt-sm-3 mt-md-5 mt-lg-5' onclick='cancel(".$row['order_id'].")'>Cancel</button>
                             </div>
                         </div>
                     </div>

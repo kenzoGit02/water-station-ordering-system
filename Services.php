@@ -9,7 +9,7 @@
 <head>
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<!-- fontawesomecdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- fontawesomecdn -->
@@ -22,7 +22,6 @@
     <!-- SweetAlert2 cdn -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- SweetAlert2 cdn -->
-	<link rel="stylesheet" href="css/Services.css">
     <link rel="stylesheet" href="css/Home.css">
 	<!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" 
@@ -108,7 +107,7 @@
 					</div>
 					<div class="row">
 						<div class="col-sm">
-							<h2 class="text-danger">Total Order Price: <i class="fa fa-fw fa-peso-sign text-secondary"></i><span class="text-dark" id="order-total-price">VALUE</span></h2>
+							<h3 class="text-danger">Total Order Price: <i class="fa fa-fw fa-peso-sign text-secondary"></i><span class="text-dark" id="order-total-price">VALUE</span></h3>
 						</div>
 					</div>
 				</div>
@@ -207,7 +206,7 @@
 
 	<!-- Notification Modal -->
 	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Notification</h5>
@@ -220,21 +219,21 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md">
-							<h4 class="">Notification Header</h4>
-							<p class="text-muted">Notification Date</p>
+							<h4 class="" id="notification-header">Notification Header</h4>
+							<p class="text-muted" id="notification-date">Notification Date</p>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-10">
-							<p>Notification Body</p>
+							<p id="notification-body">Notification Body</p>
 						</div>
 						<div class="col-md-1"></div>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" id="read-button" onclick="">Confirm</button>
 			</div>
 			</div>
 		</div>
@@ -264,15 +263,10 @@
 					<a class="nav-link dropdown-toggle px-2 py-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="fa-solid fa-bell"></i>
 					<span class="badge badge-danger"id="notif-count">
-						4
 					</span>
 					</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item text-primary" href="#" data-toggle="modal" data-target="#exampleModal3">Order Delivered <span class="text-sm text-muted">04-30-23</span></a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item text-primary" href="#">Order Delivered</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item text-primary" href="#">Order Delivered</a>
+					<div class="dropdown-menu" id="notif-dropdown" aria-labelledby="navbarDropdown">
+						<!-- php div -->
 					</div>
 				</li>
 				<li class="nav-item active">
@@ -289,31 +283,31 @@
 	<main class="container my-5">
 		<!-- merchandise row -->
 		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="col-md-4 mb-5">
+			<div class="col-0 col-sm-0 col-md-2"></div>
+			<div class="col-6 col-sm-6 col-md-4">
 				<div class="card">
 					<img src="assets/gallon.png" class="img rounded-top w-100 h-100">
 					<h3 class="text-center">Round Water Container</h3>
 					<div class="container">
 						<div class="row">
-							<div class="col-sm-3"></div>
-							<div class="col-sm-3">
+							<div class="col-0 col-sm-3"></div>
+							<div class="col-6 col-sm-3">
 								<p class="text-center text-nowrap text-secondary font-weight-bold">Price</p>
 							</div>
-							<div class="col-sm-3">
+							<div class="col-6 col-sm-3">
 								<p class="text-center text-nowrap font-weight-bold"><i class="fa fa-fw fa-peso-sign"></i>170</p>
 							</div>
-							<div class="col-sm-3"></div>
+							<div class="col-0 col-sm-3"></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-3"></div>
-							<div class="col-sm-3">
-								<p class="text-center text-nowrap text-secondary font-weight-bold">Details</p>
+							<div class="col-0 col-sm-3"></div>
+							<div class="col-6 col-sm-3">
+								<p class="text-center text-nowrap text-secondary font-weight-bold">Capacity</p>
 							</div>
-							<div class="col-sm-3">
-								<p class="text-center text-nowrap">Details</p>
+							<div class="col-6 col-sm-3">
+								<p class="text-center text-nowrap">19 Liters</p>
 							</div>
-							<div class="col-sm-3"></div>
+							<div class="col-0 col-sm-3"></div>
 						</div>
 					</div>
 					<!-- Button trigger modal -->
@@ -322,30 +316,30 @@
 					</button>
 				</div>
 			</div>
-			<div class="col-md-4 mb-5">
+			<div class="col-6 col-sm-6 col-md-4">
 				<div class="card">
 					<img src="assets/slim.png" class="img rounded-top w-100 h-100">
 					<h3 class="text-center">Slim Water Container</h3>
 					<div class="container">
 						<div class="row">
-							<div class="col-sm-3"></div>
-							<div class="col-sm-3">
+							<div class="col-0 col-sm-3"></div>
+							<div class="col-6 col-sm-3">
 								<p class="text-center text-nowrap text-secondary font-weight-bold">Price</p>
 							</div>
-							<div class="col-sm-3">
+							<div class="col-6 col-sm-3">
 								<p class="text-center text-nowrap font-weight-bold"><i class="fa fa-fw fa-peso-sign"></i>150</p>
 							</div>
-							<div class="col-sm-3"></div>
+							<div class="col-0 col-sm-3"></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-3"></div>
-							<div class="col-sm-3">
-								<p class="text-center text-nowrap text-secondary font-weight-bold">Details</p>
+							<div class="col-0 col-sm-3"></div>
+							<div class="col-6 col-sm-3">
+								<p class="text-center text-nowrap text-secondary font-weight-bold">Capacity</p>
 							</div>
-							<div class="col-sm-3">
-								<p class="text-center text-nowrap">Details</p>
+							<div class="col-6 col-sm-3">
+								<p class="text-center text-nowrap">20 Liters</p>
 							</div>
-							<div class="col-sm-3"></div>
+							<div class="col-0 col-sm-3"></div>
 						</div>
 					</div>
 					<!-- Button trigger modal -->
@@ -354,12 +348,12 @@
 					</button>
 				</div>
 			</div>
-			<div class="col-md-2"></div>
+			<div class="col-0 col-sm-0 col-md-2"></div>
 		</div>
 		<!-- refill row -->
-		<div class="row">
-			<div class="col-md-3"></div>
-			<div class="col-md-6">
+		<div class="row mt-5">
+			<div class="col-0 col-sm-0 col-md-2"></div>
+			<div class="col-12 col-sm-12 col-md-8">
 				<div class="card">
 					<div class="card-header">
 						<p class="card-text mb-0 text-muted" id="refill-text-header">Have empty jugs?</p>
@@ -377,16 +371,75 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3"></div>
+			<div class="col-0 col-sm-0 col-md-2"></div>
 		</div>
 	</main>
 
 	<!-- Footer -->
 	<div id="footer-service">
-		<p>&copy; 2023 All Rights Reservedd.</p>
+		<p>&copy; 2023 All Rights Reserved.</p>
 	</div>
 </body>
 <script>
+	function checkNotification(){
+		$.ajax({
+			type:'GET',
+			url:'functions/getNotification.php',
+			success: function(response){
+				$("#notif-dropdown").html(response);
+			}
+		});
+	}
+	function getNotificationCount(){
+		$.ajax({
+			type:'GET',
+			url:'functions/getNotificationCount.php',
+			dataType: 'JSON',
+			success: function(response){
+				if(response.count == 0){
+					$("#notif-count").css('display','none');
+				}else{
+					$("#notif-count").css('display','');
+					$("#notif-count").html(response.count);
+				}
+			}
+		});
+	}
+	getNotificationCount();
+	checkNotification();
+	setInterval(() => {
+        checkNotification();
+		getNotificationCount();
+    }, 4000);
+	function openModalNotification(notif_id){
+		$.ajax({
+			type:'POST',
+			url:'functions/getNotificationContent.php',
+			data:{
+				notif_id : notif_id
+			},
+			dataType: 'JSON',
+			success: function(res){
+				$("#notification-header").html(res.header);
+				$("#notification-body").html(res.message);
+				$("#notification-date").html(res.date + " · " +res.time);
+				$("#read-button").attr('onclick','readNotification('+ notif_id +')');
+			}
+		});
+	}
+	function readNotification(notif_id){
+		$.ajax({
+			type:'POST',
+			url:'functions/readNotification.php',
+			data:{
+				notif_id : notif_id
+			},
+			success: function(){
+				getNotificationCount();
+				checkNotification();
+			}
+		});
+	}
 	function addFunction(){
 		let quantty = $("#quantity").val();
 		let num = parseInt(quantty, 10);
@@ -436,8 +489,14 @@
 						text:'Your order is now pending and will be delivered to your address as soon as possible!',
 						confirmButtonText: 'Order Details',
 						icon: 'success'
-					}).then(() => {
-						window.location.assign("order_details.php");
+					}).then((result) => {
+						if(result.isConfirmed)
+						{
+							window.location.assign("order_details.php");
+						}
+						else{
+							location.reload();
+						}
 					});
 				}
 				else{
@@ -549,17 +608,23 @@
 		Swal.fire({
 			title:'Are you sure you wanted to cancel your order?',
 			confirmButtonText: 'Yes',
+			showDenyButton: 'Yes',
 			icon:'warning'
-		}).then(() => {
-			$.ajax({
-			url:'functions/cancelRefill.php',
-			type:'POST',
-			success: function(){
-				requestState();
+		}).then((result) => {
+			if(result.isConfirmed){
+				$.ajax({
+					url:'functions/cancelRefill.php',
+					type:'POST',
+					success: function(){
+						requestState();
+					}
+				});
 			}
-		})
 		});
 	}
 	requestState();
+	setInterval(() => {
+        requestState();
+    }, 2000);
 </script>
 </html>

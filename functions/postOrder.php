@@ -9,10 +9,9 @@ $address = $_SESSION['user_address'];
 $order = $_POST['order'];
 $quantity = $_POST['quantity'];
 $total = $_POST['total'];
-$date = date('F d Y');
 $status = 'pending';
 
-$sql = "INSERT INTO order_tbl (user_id, `order`, quantity, date_ordered, status, price) VALUES ('$userID', '$order', '$quantity', '$date','$status', '$total')";
+$sql = "INSERT INTO order_tbl (user_id, `order`, quantity, status, price) VALUES ('$userID', '$order', '$quantity','$status', '$total')";
 $result = mysqli_query($conn, $sql);
 echo $result;
 ?>

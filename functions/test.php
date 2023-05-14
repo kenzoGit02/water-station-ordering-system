@@ -1,5 +1,5 @@
 <?php 
-
+date_default_timezone_set('Asia/Manila');
 echo date("l jS \of F Y h:i:s A");
 echo "<br/>l :";
 echo date("l");
@@ -24,6 +24,10 @@ else{
 }
 echo date("F");
 echo date("jS", strtotime("0000-00-2"));
+echo "<br/>Y-m-j :";
+echo date("Y-m-j");
+echo "<br/>g:iA :";
+echo date("g:iA");
 
 
 if(isset($_POST['button'])){

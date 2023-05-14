@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <!-- fontawesomecdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- fontawesomecdn -->
@@ -61,9 +61,12 @@
                 <li class="nav-item">
                     <a class="nav-link px-2 py-3" href="admin_income_statement.php"><i class="fa fa-fw fa-money-bill-trend-up"></i>Income Statement</a>
                 </li>
-                <li class="nav-item dropdown active">
+                <!-- <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle px-2 py-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa-solid fa-bell"></i>
+                    <span class="badge badge-danger"id="notif-count">
+						4
+					</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Action</a>
@@ -71,7 +74,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
                     </div>
-                </li>
+                </li> -->
                 <li class="nav-item active">
                     <a class="nav-link px-2 py-3" href="#"><i class="fa fa-fw fa-user"></i><span id="login-text"><?php echo $_SESSION['admin_name']?></span></a>
                 </li>
@@ -81,6 +84,12 @@
             </ul>
         </div>
     </nav>
+
+    <!-- maintenance text -->
+    <h3 class="btn-outline-info text-center blink"id="maintenance-text" style="display:none">
+        DAY FOR MONTHLY MAINTENANCE OF WATER FILTER!
+    </h3>
+
     <!-- Schedules -->
     <div class="container my-5">
         <div class="row mb-5">
@@ -90,18 +99,19 @@
         </div>
         <div class="row mb-5 bg-light rounded">
             <div class="container m-3">
-                <div class="row my-2">
+                <!-- <div class="row my-2">
                     <div class="col-md-3 d-flex align-items-center">
                         <p class="lead">Business Days Active:</p>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <form class="form-inline">
                             <input type="text" class="form-control bg-light mr-sm-1"  placeholder="Placeholder" disabled>
                             to
                             <input type="text" class="form-control bg-light ml-sm-1"  placeholder="Placeholder" disabled>
                         </form>
                     </div>
-                </div>
+                    <div class="col-md-3"></div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-5">
                         <p class="lead">
@@ -122,7 +132,7 @@
         </div>
         <div class="row mb-5 bg-light rounded">
             <!-- business days -->
-            <div class="col-md-6 pt-3">
+            <!-- <div class="col-md-6 pt-3">
                 <div class="form-group">
                     <label for="business-days" class="h3">Business Days</label>
                     <p class="form-text text-muted">From</p>
@@ -149,7 +159,8 @@
                     </select>
                     <button type="submit" class="btn btn-primary mt-1">Save</button>
                 </div>
-            </div>
+            </div> -->
+            <div class="col-md-3"></div>
             <div class="col-md-6 pt-3">
                 <div class="form-group">
                     <label for="maintenance" class="h3">Water Filter Maintenance</label>
@@ -190,10 +201,25 @@
                     <div class="btn btn-primary" onclick="saveDate()">Save</div>
                 </div>
             </div>
+            <div class="col-md-3"></div>
         </div>
     </div>
 </body>
 <script>
+    function checkMaintenance(){
+        $.ajax({
+            type:'GET',
+            url: '../functions/getMaintenanceDate.php',
+            success: function(res){
+                if(res == 1){
+                    $("#maintenance-text").css("display","block");
+                }else{
+                    $("#maintenance-text").css("display","none");
+                }
+            }
+        });
+    }
+    checkMaintenance();
     
     function getDate(){
         $.ajax({
