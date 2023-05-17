@@ -96,7 +96,6 @@
     <main class="container mb-3">
         <div class="row mb-sm-1" >
             <div class="container">
-                
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="col-md-6 py-3 bg-light rounded">
@@ -109,23 +108,128 @@
             </div>
         </div>
         <div class="row">
-            
-            <div class="col-md-3"></div>
-            <div class="col-md-6 py-3 bg-light rounded">
-                <div class="row">
-                    <div class="col-4">
-                        <label for="read-revenue" class="">Revenue</label>
-                        <input type="numbers" id="read-revenue" class="form-control currencyTextBox" readonly>
+            <div class="col-1 col-md-3"></div>
+            <div class="col-10 col-md-6 py-3 bg-light rounded">
+                <div class="container-fluid">
+                    <!-- revenues -->
+                    <div class="row">
+                        <h5 class="col-12">Revenues</h5>
                     </div>
-                    <div class="col-4">
-                        <label for="read-expenses" class="">Expenses</label>
-                        <input type="numbers" id="read-expenses" class="form-control currencyTextBox" readonly>
+                    <div class="row mb-4">
+                        <div class="col-1"></div>
+                        <div class="col-10">
+                            <div class="container-fluid">
+                                <div class="row mb-1">
+                                    <div class="col-6">Refilling Sales (<span id="refill-count"></span>)</div>
+                                    <div class="col-3 text-right" id="refill">50,000.00</div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-5">Walk-in</div>
+                                    <div class="col-4 text-right">
+                                        <input type="text" class="form-control currencyTextBox text-right ml-3" id="walk-in"  placeholder="Amount">
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-6">
+                                        Merchandise Sales
+                                        (<span id="merchandise-count-slim"></span>)
+                                        (<span id="merchandise-count-round"></span>)
+                                    </div>
+                                    <div class="col-3 text-right" style="border-bottom:1px solid black" id="merchandise"></div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-6">
+                                        Total Revenue
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-3">₱<span id="read-revenue"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
                     </div>
-                    <div class="col-4">
-                        <label for="read-net-income" class="">Net Income</label>
-                        <input type="numbers" id="read-net-income" class="form-control currencyTextBox" readonly>
+                    <!-- expenses -->
+                    <div class="row">
+                        <h5 class="col-12">Expenses</h5>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-1"></div>
+                        <div class="col-10">
+                            <div class="container-fluid">
+                                <div class="row mb-1">
+                                    <div class="col-5">Cost of Goods Sold</div>
+                                    <div class="col-4 text-right">
+                                        <input type="text" class="form-control currencyTextBox text-right ml-3" id=""  placeholder="Amount">
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-5">Water Expenses</div>
+                                    <div class="col-4 text-right">
+                                        <input type="text" class="form-control currencyTextBox text-right ml-3" id=""  placeholder="Amount">
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-5">Electricity</div>
+                                    <div class="col-4 text-right">
+                                        <input type="text" class="form-control currencyTextBox text-right ml-3" id=""  placeholder="Amount">
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-5">Rent</div>
+                                    <div class="col-4 text-right">
+                                        <input type="text" class="form-control currencyTextBox text-right ml-3" id=""  placeholder="Amount">
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-5">Salary</div>
+                                    <div class="col-4 text-right">
+                                        <input type="text" class="form-control currencyTextBox text-right ml-3" id=""  placeholder="Amount">
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-5">Fuel</div>
+                                    <div class="col-4 text-right">
+                                        <input type="text" class="form-control currencyTextBox text-right ml-3" id=""  placeholder="Amount">
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-5">Maintenance</div>
+                                    <div class="col-4 text-right" style="border-bottom:1px solid black;">
+                                        <input type="text" class="form-control currencyTextBox text-right ml-3" id=""  placeholder="Amount">
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-6">
+                                        Total Expenses
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-3">₱<span id="read-expenses"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                    <!-- net income -->
+                    <div class="row">
+                        <h5 class="col-8">Net Income</h5>
+                        <div class="col-4" style="border-bottom:1px solid black;">₱<span id="read-expenses"></span></div>
                     </div>
                 </div>
+
+
+
+
+
                 <!-- revenue  -->
                 <h3>Revenue <span class="text-muted h6">for the past 30 days</span></h3>
                 <div class="form-group">
@@ -134,7 +238,7 @@
                         <input type="text" readonly class="form-control bg-light" id="merchandise" placeholder="Amount">
                         <div class="input-group-prepend">
                         <div class="input-group-text">
-                            Revenue from merchandise
+                            Merchandise Sales
                             (<span id="merchandise-count-slim"></span>)
                             (<span id="merchandise-count-round"></span>)
                         </div>
@@ -146,7 +250,7 @@
                     <div class="input-group">
                         <input type="text" readonly class="form-control bg-light" id="refill" placeholder="Amount">
                         <div class="input-group-prepend">
-                        <div class="input-group-text">Revenue from refill (<span id="refill-count"></span>)</div>
+                        <div class="input-group-text">Refilling Sales (<span id="refill-count"></span>)</div>
                         </div>
                     </div>
                 </div>
@@ -155,13 +259,11 @@
                     <div class="input-group">
                         <input type="text" class="form-control currencyTextBox" id="walk-in"  placeholder="Amount">
                         <div class="input-group-prepend">
-                        <div class="input-group-text">Revenue from walk-in</div>
+                        <div class="input-group-text">Walk-in</div>
                         </div>
                     </div>
                 </div>
-                <div class="text-right">
-                    <button class="btn btn-primary" id="compute-button" onclick="computeTotal()">Compute Total</button>
-                </div>
+                
                 <!-- expenses -->
                 <h3>Expenses</h3>
                 <div class="form-group">
@@ -177,7 +279,7 @@
                     <label class="sr-only" for="electricity">Electricity</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                        <div class="input-group-text">Cost of Electricity</div>
+                        <div class="input-group-text">Electricity</div>
                         </div>
                         <input type="text" class="form-control currencyTextBox" id="electricity" placeholder="Amount">
                     </div>
@@ -186,7 +288,7 @@
                     <label class="sr-only" for="water">Water</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                        <div class="input-group-text">Cost of Water</div>
+                        <div class="input-group-text">Water</div>
                         </div>
                         <input type="text" class="form-control currencyTextBox" id="water" placeholder="Amount">
                     </div>
@@ -195,21 +297,65 @@
                     <label class="sr-only" for="rent">Rent</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                        <div class="input-group-text">Cost of Rent</div>
+                        <div class="input-group-text">Rent</div>
                         </div>
                         <input type="text" class="form-control currencyTextBox" id="rent" placeholder="Amount">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="sr-only" for="salary">Salary</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                        <div class="input-group-text">Salary</div>
+                        </div>
+                        <input type="text" class="form-control currencyTextBox" id="salary" placeholder="Amount">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="fuel">Fuel</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                        <div class="input-group-text">Fuel</div>
+                        </div>
+                        <input type="text" class="form-control currencyTextBox" id="fuel" placeholder="Amount">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="maintenance">Maintenance</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                        <div class="input-group-text">Maintenance</div>
+                        </div>
+                        <input type="text" class="form-control currencyTextBox" id="maintenance" placeholder="Amount">
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button class="btn btn-primary" id="compute-button" onclick="computeTotal()">Compute Total</button>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="read-revenue" class="">Revenue</label>
+                        <input type="numbers" id="read-revenue" class="form-control bg-light currencyTextBox" readonly>
+                    </div>
+                    <div class="col-4">
+                        <label for="read-expenses" class="">Expenses</label>
+                        <input type="numbers" id="read-expenses" class="form-control bg-light currencyTextBox" readonly>
+                    </div>
+                    <div class="col-4">
+                        <label for="read-net-income" class="">Net Income</label>
+                        <input type="numbers" id="read-net-income" class="form-control bg-light currencyTextBox" readonly>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-1 col-md-3"></div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 bg-light rounded">
                 
             </div>
             <div class="col-md-3"></div>
-        </div>
+        </div> -->
     </main>
 </body>
 <script>
@@ -264,7 +410,7 @@
             url:'../functions/getMerchandiseRevenue.php',
             dataType: 'JSON',
             success: function(res){
-                $("#merchandise").val(res.price);
+                $("#merchandise").html(res.price);
                 $("#merchandise-count-slim").html(res.slim);
                 $("#merchandise-count-round").html(res.round);
             }
@@ -276,7 +422,7 @@
             url:'../functions/getRefillRevenue.php',
             dataType: 'JSON',
             success: function(res){
-                $("#refill").val(res.price);
+                $("#refill").html(res.price);
                 $("#refill-count").html(res.count);
             }
         });
@@ -290,14 +436,17 @@
         let electricity = parseFloat($("#electricity").val());
         let water = parseFloat($("#water").val());
         let rent = parseFloat($("#rent").val());
+        let salary = parseFloat($("#salary").val());
+        let fuel = parseFloat($("#fuel").val());
+        let maintenance = parseFloat($("#maintenance").val());
 
-        if($("#walk-in").val() == "" || $("#goods-sold").val() == "" || $("#electricity").val() == "" || $("#water").val() == "" || $("#rent").val() == ""){
+        if($("#walk-in").val() == "" || $("#goods-sold").val() == "" || $("#electricity").val() == "" || $("#water").val() == "" || $("#rent").val() == "" || $("#salary").val() == "" || $("#fuel").val() == "" || $("#maintenance").val() == ""){
             Swal.fire('Incomplete Fields','Please fill in the empty fields before computing','warning');
             return;
         }
 
         let revenue = refill + merchandise + walk_in;
-        let expenses = goods_sold + electricity + water + rent;
+        let expenses = goods_sold + electricity + water + rent + salary + fuel + maintenance;
         let net_income = revenue - expenses;
         $("#read-revenue").val(revenue);
         $("#read-expenses").val(expenses);
